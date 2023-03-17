@@ -27,6 +27,8 @@ const BottomStickyNav = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, [x]);
+
+
     return (
         <div className={`${isFixed ? `${styles.myFixed}` : `${styles.mySticky}`} hidden lg:block duration-500 left-0 right-0 py-[10px] z-30 bg-white border-b border-b-[#f4f4f4]`} ref={navRef}>
             <div className='max-w-[1200px] mx-auto'>

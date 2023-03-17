@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, CSSProperties } from 'react';
 import logo from '@/assets/transShopHouse.png';
 import { FiPhoneCall } from 'react-icons/fi';
 import { AiOutlineUser, AiOutlineShopping } from 'react-icons/ai';
 import { FiHeart } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure } from '@chakra-ui/react';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure, DrawerContentProps } from '@chakra-ui/react';
 import styles from '@/styles/MiddleNav.module.css';
 import CartProduct from './CartProduct';
 import { BsSearch } from 'react-icons/bs';
@@ -13,6 +13,7 @@ import { MdOutlineClose } from 'react-icons/md';
 import { Sidenav, Nav } from 'rsuite';
 import { FaSearch } from 'react-icons/fa';
 import { brands, categories } from '@/utils/constants';
+import { css } from '@emotion/react';
 import Image from 'next/image';
 
 const MiddleNav = () => {
@@ -36,7 +37,6 @@ const MiddleNav = () => {
             setX(navRef.current.getBoundingClientRect().top);
         }
     }, [navRef]);
-
 
     useEffect(() => {
         const handleScroll = () => {
@@ -160,7 +160,7 @@ const MiddleNav = () => {
                 finalFocusRef={btnRef}
             >
                 <DrawerOverlay />
-                <DrawerContent css={{ fontFamily: "'Poppins', sans-serif" }} className={`py-[25px] px-[20px] overflow-y-auto ${styles.customScroll}`}>
+                <DrawerContent className='py-[25px] px-[20px] overflow-y-auto' style={{ fontFamily: "'Poppins', sans-serif" }}>
                     <p className='mb-[17px] leading-10 font-bold text-[#212529] text-[20px]'>Shopping Cart</p>
                     <DrawerCloseButton size={'lg'} className='text-black' />
                     {new Array(5).fill(0).map((item, i) => <CartProduct key={i} />)}
@@ -173,7 +173,7 @@ const MiddleNav = () => {
                         <button className='bg-[#222529] hover:bg-[#34393F] text-white duration-500 text-[12px] font-semibold py-[14px] leading-[16px] tracking-wide rounded-sm px-[25px]'>CHECKOUT</button>
                     </div>
                 </DrawerContent>
-            </Drawer>
+            </Drawer >
             <Drawer
                 isOpen={isOpen1}
                 placement='left'
