@@ -47,7 +47,7 @@ const LatestNews = () => {
                                     </div>
                                 </figure>
                                 <div className='pb-[21px]  pl-4'>
-                                    <p className='text-[16px] md:text-[18px] text-[#222529] no-underline hover:underline decoration-[#222529] duration-500 cursor-pointer font-bold mb-[13px]'>{item.title}</p>
+                                    <p title={item.title} className='text-[16px] md:text-[18px] text-[#222529] no-underline hover:underline w-full truncate decoration-[#222529] duration-500 cursor-pointer font-bold mb-[13px]'>{item.title}</p>
                                     <p className='text-[#777] text-[11.5px] md:text-[13px] mb-[7px]'>{item.text.length > 101 ? item.text.slice(0, 101) + '...' : item.text}</p>
                                     <p className='text-[#999] text-[9px] md:text-[10px]'>{item.comments.length} COMMENTS</p>
                                 </div>

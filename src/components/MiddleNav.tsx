@@ -13,7 +13,6 @@ import { MdOutlineClose } from 'react-icons/md';
 import { Sidenav, Nav } from 'rsuite';
 import { FaSearch } from 'react-icons/fa';
 import { brands, categories } from '@/utils/constants';
-import { css } from '@emotion/react';
 import Image from 'next/image';
 
 const MiddleNav = () => {
