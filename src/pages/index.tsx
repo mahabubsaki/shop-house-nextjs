@@ -1,22 +1,14 @@
 import Head from 'next/head';
-import Notice from '@/components/Notice';
-import TopNav from '@/components/TopNav';
-import MiddleNav from '@/components/MiddleNav';
-import BottomStickyNav from '@/components/BottomStickyNav';
-import SliderHeader from '@/components/SliderHeader';
-import SliderFeature from '@/components/SliderFeature';
-import FeaturedProducts from '@/components/FeaturedProducts';
-import SaleBanner from '@/components/SaleBanner';
-import CategoriesSlider from '@/components/CategoriesSlider';
-import Services from '@/components/Services';
-import ParallexPromo from '@/components/ParallexPromo';
-import LatestNews from '@/components/LatestNews';
-import BrandsMarquee from '@/components/BrandsMarquee';
-import MobileBottomNav from '@/components/MobileBottomNav';
-import "rsuite/dist/rsuite.min.css";
-import 'swiper/css';
-import "swiper/css/free-mode";
-import Footer from '@/components/Footer';
+import UserLayout from '@/layouts/UserLayout';
+import SliderHeader from '@/components/home/SliderHeader';
+import SliderFeature from '@/components/home/SliderFeature';
+import FeaturedProducts from '@/components/home/FeaturedProducts';
+import SaleBanner from '@/components/home/SaleBanner';
+import CategoriesSlider from '@/components/home/CategoriesSlider';
+import Services from '@/components/home/Services';
+import ParallexPromo from '@/components/home/ParallexPromo';
+import LatestNews from '@/components/home/LatestNews';
+import BrandsMarquee from '@/components/home/BrandsMarquee';
 
 
 export default function Home() {
@@ -28,11 +20,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon1.ico" />
       </Head>
-      <main className='App relative'>
-        <Notice />
-        <TopNav />
-        <MiddleNav />
-        <BottomStickyNav />
+      <UserLayout>
         <SliderHeader />
         <SliderFeature />
         <FeaturedProducts />
@@ -42,9 +30,7 @@ export default function Home() {
         <ParallexPromo />
         <LatestNews />
         <BrandsMarquee />
-        <Footer />
-        <MobileBottomNav />
-      </main>
+      </UserLayout>
     </>
   );
 }

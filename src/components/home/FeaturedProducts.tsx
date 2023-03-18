@@ -3,7 +3,7 @@ import { SwiperSlide, Swiper } from 'swiper/react';
 import { homeProductsFeatured, newArrival } from '@/utils/constants';
 import { Navigation } from 'swiper';
 import "swiper/css/navigation";
-import HomeSingleProduct from './HomeSingleProduct';
+import HomeSingleProduct from '../common/map/HomeSingleProduct';
 import { useInView } from 'framer-motion';
 
 const FeaturedProducts = () => {

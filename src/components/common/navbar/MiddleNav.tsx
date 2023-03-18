@@ -7,7 +7,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, useDisclosure, DrawerContentProps } from '@chakra-ui/react';
 import styles from '@/styles/MiddleNav.module.css';
-import CartProduct from './CartProduct';
+import CartProduct from '../map/CartProduct';
 import { BsSearch } from 'react-icons/bs';
 import { MdOutlineClose } from 'react-icons/md';
 import { Sidenav, Nav } from 'rsuite';

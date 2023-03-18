@@ -42,7 +42,7 @@ const CategoriesSlider = () => {
                 <div className='mb-[45px]'>
                     <p className="flex items-center mx-0 xl:-mx-[20px]">
                         <span className="border-t block border-[#0000001a] flex-grow mr-[15px]"></span>
-                        <span className={`font-bold text-[16px] md:text-[18px]`}>BROWSE OUR CATEGORIES</span>
+                        <span className={`font-bold text-[16px] md:text-[18px]`}>BROWSE OUR POPULAR SUB-CATEGORIES</span>
                         <span className="border-t block border-[#0000001a] flex-grow ml-[15px]"></span>
                     </p>
                 </div>

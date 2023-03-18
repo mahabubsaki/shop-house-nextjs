@@ -1,5 +1,8 @@
 import { store } from '@/store/store';
 import '@/styles/globals.css';
+import "rsuite/dist/rsuite.min.css";
+import 'swiper/css';
+import "swiper/css/free-mode";
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
