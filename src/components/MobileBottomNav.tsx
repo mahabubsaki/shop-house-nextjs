@@ -32,7 +32,7 @@ const MobileBottomNav = () => {
         const handleScroll2 = () => {
 
             if (arrowRef.current) {
-                setIsFixed2(window.scrollY > y - 250);
+                setIsFixed2(window.scrollY + 500 > y);
             }
         };
 
