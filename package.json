@@ -28,6 +28,7 @@
     "react-redux": "^8.0.5",
     "react-scroll-parallax": "^3.3.2",
     "rsuite": "^5.28.3",
+    "sharp": "^0.31.3",
     "swiper": "^9.1.1",
     "typescript": "4.9.5"
   },
