@@ -47,7 +47,7 @@ const categories: {
     name: string,
     img: string,
     quantity: number;
-}[] = [{ img: 'https://i.ibb.co/ZH6SJpF/category-1.jpg', name: 'Dress', quantity: 5 }, { img: 'https://i.ibb.co/8X54kLK/category-2.jpg', name: 'Shoes', quantity: 8 }, { img: 'https://i.ibb.co/F5fzD0p/category-3.jpg', name: 'Glasses', quantity: 10 }, { img: 'https://i.ibb.co/c3qdjg7/category-4.jpg', name: 'Backpack', quantity: 12 }, { img: 'https://i.ibb.co/CPW2347/category-5.jpg', name: 'Ladies Bag', quantity: 25 }, { img: 'https://i.ibb.co/Bgz25qh/category-6.jpg', name: 'Speaker', quantity: 17 }, { img: 'https://i.ibb.co/G77m2zT/category-7.jpg', name: 'Watches', quantity: 4 }, { img: 'https://i.ibb.co/wsQ9sqP/category-8.jpg', name: 'Machine', quantity: 1 }, { img: 'https://i.ibb.co/qrbQk2L/category-9.jpg', name: 'Sofa', quantity: 12 }, { img: 'https://i.ibb.co/FqMNrtJ/category-10.jpg', name: 'Headphone', quantity: 23 }];
+}[] = [{ img: 'https://i.ibb.co/ZH6SJpF/category-1.jpg', name: "Men's suits", quantity: 5 }, { img: 'https://i.ibb.co/8X54kLK/category-2.jpg', name: 'Shoes', quantity: 8 }, { img: 'https://i.ibb.co/F5fzD0p/category-3.jpg', name: 'Glasses', quantity: 10 }, { img: 'https://i.ibb.co/c3qdjg7/category-4.jpg', name: 'Backpack', quantity: 12 }, { img: 'https://i.ibb.co/CPW2347/category-5.jpg', name: 'Ladies Bag', quantity: 25 }, { img: 'https://i.ibb.co/Bgz25qh/category-6.jpg', name: 'Speaker', quantity: 17 }, { img: 'https://i.ibb.co/G77m2zT/category-7.jpg', name: 'Watches', quantity: 4 }, { img: 'https://i.ibb.co/wsQ9sqP/category-8.jpg', name: 'Machine', quantity: 1 }, { img: 'https://i.ibb.co/qrbQk2L/category-9.jpg', name: 'Sofa', quantity: 12 }, { img: 'https://i.ibb.co/FqMNrtJ/category-10.jpg', name: 'Headphone', quantity: 23 }];
 
 
 

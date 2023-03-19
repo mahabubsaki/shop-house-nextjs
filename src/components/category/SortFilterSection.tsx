@@ -14,7 +14,6 @@ const SortFilterSection = ({ btnRef, onOpen }: { btnRef: React.RefObject<Focusab
 
         const handleScroll = () => {
             if (navRef.current) {
-                console.log(window.scrollY + 170, x);
                 setIsFixed(window.scrollY + 170 > x);
             }
         };

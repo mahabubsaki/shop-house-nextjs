@@ -40,7 +40,7 @@ const MiddleNav = () => {
     useEffect(() => {
         const handleScroll = () => {
             if (navRef.current) {
-                setIsFixed(window.scrollY > x + 100);
+                setIsFixed(window.scrollY > x + 150);
             }
         };
 
