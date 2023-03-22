@@ -13,7 +13,7 @@ const HomeSingleProduct = ({ item: { category, discount, image, isHot, name, pri
         image: string[],
         rating: number,
         price: number,
-    }, delay: number, isFeatured?: boolean, isNewArrival?: boolean, section: string;
+    }, delay: number, isFeatured?: boolean, isNewArrival?: boolean, section?: string;
 }) => {
     const [figImg, setFigImg] = useState(false);
 

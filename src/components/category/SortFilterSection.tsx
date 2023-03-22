@@ -34,7 +34,7 @@ const SortFilterSection = ({ btnRef, onOpen }: { btnRef: React.RefObject<Focusab
         console.log(isFixed);
     }, [isFixed]);
     return (
-        <div ref={navRef} className={`mb-[18px] block md:hidden  md:mb-[10px] ${isFixed ? styles.myFixed : styles.mySticky}`}>
+        <div ref={navRef} className={`mb-[18px] z-30 block md:hidden  md:mb-[10px] ${isFixed ? styles.myFixed : styles.mySticky}`}>
             <div className='bg-[#f4f4f4] px-[10px] py-[10px] md:p-0 md:bg-white flex justify-between text-[#222529] md:text-[#777]'>
                 <button onClick={onOpen} className='flex items-center border hover:text-[#08c] duration-500 gap-[6px] border-[#DFDFDF] pl-[6px] pr-[11px] mr-2'>
                     <VscSettings className='rotate-90 text-xl' />

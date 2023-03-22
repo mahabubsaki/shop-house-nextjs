@@ -1,4 +1,5 @@
 import CategoryBanner from '@/components/category/CategoryBanner';
+import ProductArea from '@/components/category/ProductArea';
 import SortFilterDrawer from '@/components/category/SortFilterDrawer';
 import SortFilterSection from '@/components/category/SortFilterSection';
 import SortFilterSectionDesktop from '@/components/category/SortFilterSectionDesktop';
@@ -26,9 +27,7 @@ const Category = () => {
                     <SortFilterSection btnRef={btnRef} onOpen={onOpen} />
                     <SortFilterSectionDesktop btnRef={btnRef} onOpen={onOpen} />
                     <SortFilterDrawer btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
-                    <div className='h-[10000px]'>
-
-                    </div>
+                    <ProductArea />
                 </div>
             </UserLayout>
         </>

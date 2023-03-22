@@ -53,7 +53,7 @@ const MiddleNav = () => {
     }, [x]);
     return (
         <>
-            <div className={`border-t  border-b lg:border-b-0 duration-500 z-20 bg-white left-0 right-0 border-[#E7E7E7]  ${isFixed ? `py-[10px] ${styles.myFixed}` : `${styles.mySticky} py-[27px]`}`} ref={navRef}>
+            <div className={`border-t  border-b lg:border-b-0 duration-500 z-[30] bg-white left-0 right-0 border-[#E7E7E7]  ${isFixed ? `py-[10px] ${styles.myFixed}` : `${styles.mySticky} py-[27px]`}`} ref={navRef}>
                 <div className='max-w-[1200px] mx-auto'>
                     <div className='px-[10px] flex  items-center gap-[40px]'>
                         <div className='flex items-center justify-between w-[300px] gap-3 xs:w-[200px] lg:w-[120px] h-[57px]'>

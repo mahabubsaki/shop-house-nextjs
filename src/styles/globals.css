@@ -18,7 +18,10 @@ html{
 }
 
 
-
+.rs-pagination-btn{
+  font-size: 14px !important;
+  font-weight: bold !important
+}
 
 
 
