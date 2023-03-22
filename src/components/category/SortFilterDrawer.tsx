@@ -10,11 +10,11 @@ const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='left' >
             <DrawerOverlay />
-            <DrawerContent className='py-[13px] px-[9px] overflow-auto'>
+            <DrawerContent className={`py-[13px] px-[9px] overflow-auto`}>
                 <DrawerCloseButton />
                 <aside className='mt-2'>
                     <div className='px-5'>
-                        <Accordion allowToggle allowMultiple>
+                        <Accordion allowToggle defaultIndex={[0, 1, 2, 3]} allowMultiple>
                             <CustomAccordion section='category' allCategories={
                                 [
                                     { name: 'Clothing', subCategory: ["Shirts", "Pants", "Kid's"] },
@@ -24,15 +24,20 @@ const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                                     { name: 'Sports', subCategory: ['Spors Gear', 'Sports Shoes', 'Fitness Equipment'] },
                                     { name: 'Toys', subCategory: ['Dolls', 'Board Games', 'Building'] },
                                     { name: 'Health', subCategory: ['Vitamins', 'Supplements', 'Medical Supply'] },
-                                    { name: 'Books', subCategory: ['Fiction', 'Kids', 'Magazine'] },
+                                    { name: 'Books', subCategory: ['Fiction', 'Comic', 'Magazine'] },
                                     { name: 'Food', subCategory: ['Snacks', 'Sweets', 'Spices'] },
                                     { name: 'Fashion', subCategory: ['Bag'] },
                                     { name: 'Accessories', subCategory: ['Shoes', 'Caps', 'Watch'] }
                                 ]
                             } />
                             <CustomAccordion section='price' />
+                            <CustomAccordion section='color' colors={['#000000', '#0188CC', '#81D742', '#6085A5', '#AB6E6E']} />
+                            <CustomAccordion section='size' sizes={['XXL', 'XL', 'L', 'M', 'S']} />
                         </Accordion>
                     </div>
+                    <button className='w-full py-4 mt-8 text-[16px] font-bold bg-white hover:bg-[#08c] duration-500 hover:border-white text-black hover:text-white border border-[#08c]'>
+                        Filter
+                    </button>
                 </aside>
             </DrawerContent>
         </Drawer>
