@@ -17,7 +17,6 @@ const ProductArea = () => {
                     prev
                     last
                     next
-
                     first
                     size="md"
                     total={100}

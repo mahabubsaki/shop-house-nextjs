@@ -41,7 +41,7 @@ function CustomSelect({ options, width, defaults }: { options: string[], width: 
         </p>
       </button>
       <div
-        className={`absolute z-10 w-full mt-1 bg-white border border-[#DFDFDF]  shadow-lg transform transition-transform duration-500 origin-top ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`}
+        className={`absolute z-30 w-full mt-1 bg-white border border-[#DFDFDF]  shadow-lg transform transition-transform duration-500 origin-top ${isOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`}
         style={{ transformOrigin: 'top' }}
       >
         {isOpen && (
@@ -51,7 +51,7 @@ function CustomSelect({ options, width, defaults }: { options: string[], width: 
                 title={option}
                 type="button"
                 key={option}
-                className={`block truncate w-full py-1 px-2 text-left hover:text-[#222529] hover:bg-[#1e90ff] ${selectedOption === option ? 'bg-[#1e90ff]' : 'bg-white'}`}
+                className={`block truncate w-full py-1 px-2 text-left hover:text-[#222529] hover:bg-[#1e90ff] ${selectedOption === option ? 'bg-[#1e90ff] text-[#222529]' : 'bg-white'}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleOptionClick(option);
