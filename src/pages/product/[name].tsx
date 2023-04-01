@@ -6,6 +6,7 @@ import React from 'react';
 import ImageSlider from '@/components/product/ImageSlider';
 import ProductInformation from '@/components/product/ProductInformation';
 import InformationTabs from '@/components/product/InformationTabs';
+import RelatedProducts from '@/components/product/RelatedProducts';
 
 
 export const getServerSideProps: GetServerSideProps<{ name: string; }> = async (context) => {
@@ -51,11 +52,8 @@ const SingleProductPage = ({ name }: { name: string; }) => {
                     <div className='px-[10px]'>
                         <InformationTabs color={data.color} name={name} dimensions={data.dimensions} size={data.size} weight={data.weight} description={data.description} reviews={data.reviews} />
                     </div>
+                    <RelatedProducts />
                 </div>
-
-                {/* <div className='h-[2000px]'>
-
-                </div> */}
             </UserLayout>
         </>
     );

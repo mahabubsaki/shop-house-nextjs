@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { SwiperSlide, Swiper } from 'swiper/react';
 import { homeProductsFeatured, newArrival } from '@/utils/constants';
+import { SwiperSlide, Swiper } from 'swiper/react';
 import { Navigation } from 'swiper';
 import "swiper/css/navigation";
 import HomeSingleProduct from '../common/map/HomeSingleProduct';
