@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<{ name: string; }> = async (
 const SingleProductPage = ({ name }: { name: string; }) => {
     const data = {
         img: ['https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-1-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-2-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-3-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-4-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-5-big.jpg'],
-        reviews: 6,
+        reviews: [{ avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }],
         price: 1999,
         discount: 15,
         sku: 654613612,
@@ -46,10 +46,10 @@ const SingleProductPage = ({ name }: { name: string; }) => {
                     <BreadCrumpNavigator paths={['PRODUCTS']} />
                     <div className='flex flex-col md:flex-row mb-[30px]'>
                         <ImageSlider img={data.img} />
-                        <ProductInformation category={data.category} description={data.description} discount={data.discount} name={name} price={data.price} reviews={data.reviews} sku={data.sku} />
+                        <ProductInformation category={data.category} description={data.description} discount={data.discount} name={name} price={data.price} reviews={data.reviews.length} sku={data.sku} />
                     </div>
                     <div className='px-[10px]'>
-                        <InformationTabs color={data.color} dimensions={data.dimensions} size={data.size} weight={data.weight} description={data.description} reviews={data.reviews} />
+                        <InformationTabs color={data.color} name={name} dimensions={data.dimensions} size={data.size} weight={data.weight} description={data.description} reviews={data.reviews} />
                     </div>
                 </div>
 

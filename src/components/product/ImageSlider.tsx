@@ -35,7 +35,7 @@ const ImageSlider = ({ img }: { img: string[]; }) => {
                     </SwiperSlide>)}
                 </Swiper>
             </div>
-            <div className='pt-2 w-full h-[115px]'>
+            <div className='pt-2 w-full h-[100px] md:h-[115px]'>
                 <Swiper navigation slidesPerView={4} spaceBetween={8} className='w-full h-full'>
                     {new Array(5).fill(0).map((_, index) => <SwiperSlide key={index} onClick={() => {
                         setImageIndex(index);
