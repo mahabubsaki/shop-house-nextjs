@@ -1,17 +1,6 @@
 const priceModifier = (price: number): string => {
-    const priceStr = price.toString();
-    const length = priceStr.length;
-    if (length <= 3) {
-        return priceStr + '.00';
-    }
-    const numGroups = Math.ceil(length / 3) - 1;
-    let result = priceStr.slice(0, length % 3);
-    for (let i = 0; i < numGroups; i++) {
-        if (result !== "") {
-            result += ",";
-        }
-        result += priceStr.slice(length % 3 + i * 3, length % 3 + (i + 1) * 3);
-    }
-    return result + '.00';
+    const [integerPart, decimalPart] = price.toFixed(2).split(".");
+    const integerPartWithCommas = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${integerPartWithCommas}.${decimalPart}`;
 };
 export { priceModifier };

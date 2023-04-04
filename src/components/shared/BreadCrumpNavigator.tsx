@@ -11,11 +11,11 @@ const BreadCrumpNavigator = ({ paths }: { paths: string[]; }) => {
             </Link>
             {paths.map((item, i) => {
                 if (i == paths.length) {
-                    return <span key={i} className='uppercase'>{item}</span>;
+                    return <Link href={`/${item.toLowerCase()}`}><span key={i} className='uppercase'>{item}</span></Link>;
                 } else {
                     return <React.Fragment key={i}>
                         <IoIosArrowForward className='' />
-                        <span className='uppercase'>{item}</span>
+                        <Link href={`/${item.toLowerCase()}`}><span className='uppercase'>{item}</span></Link>
                     </React.Fragment>;
                 }
             })}
