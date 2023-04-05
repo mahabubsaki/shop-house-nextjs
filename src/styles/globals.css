@@ -24,7 +24,10 @@ html{
 }
 
 
-
+.next-link {
+  color: inherit;
+  text-decoration: none;
+}
 
 /* .swiper-button-next::after { color: red, } */
 

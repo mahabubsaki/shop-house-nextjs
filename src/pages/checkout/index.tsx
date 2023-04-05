@@ -1,12 +1,13 @@
 import CartLayout from '@/layouts/CartLayout';
 
 import { priceModifier } from '@/utils/price_modifier';
-import { FormControl, FormLabel, Input, Radio, RadioGroup, Select, Textarea } from '@chakra-ui/react';
+import { Radio, RadioGroup } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import fs from 'fs';
 import { FcOk } from 'react-icons/fc';
+import ShippingBillingForm from '@/components/shared/ShippingBillingForm';
 
 type DataType = {
     abbreviation: string;
@@ -47,64 +48,7 @@ const Checkout = ({ data }: PropsType) => {
                 !doneCheckout ? <CartLayout route='checkout'>
                     <div className='flex flex-col justify-start items-start lg:flex-row gap-[20px] mt-10'>
                         <div className='checkout-form w-[100%] lg:w-[60%] px-[25px] lg:px-0'>
-                            <p className='text-[22px] font-bold text-[#222529]'>Shipping & Billing details</p>
-                            <form autoComplete='new-password' onSubmit={(e) => e.preventDefault()} className='py-[10px] flex flex-col gap-[18px]'>
-                                <div className='flex gap-[20px] flex-col sm:flex-row'>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>First name</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Last name</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Company name (optional)</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>State</span></FormLabel>
-                                        <Select focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'}>
-                                            {data.states.map((item) => <option key={item.abbreviation} className='text-[#777]' value={item.abbreviation}>{item.name} ({item.abbreviation})</option>)}
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Town / City</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Postcode / ZIP</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Phone</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl isRequired>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Email</span></FormLabel>
-                                        <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl>
-                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Order notes (optional)</span></FormLabel>
-                                        <Textarea resize={'none'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} py={'3'} height={'2xs'} color={'option.400'} />
-                                    </FormControl>
-                                </div>
-                            </form>
-
+                            <ShippingBillingForm data={data} />
                         </div>
                         <div className='side-checkout-card w-[85%] mx-auto lg:w-[40%] border-2 border-[#E7E7E7] px-[32px] pt-[28px] pb-[31px]'>
                             <p className='text-base font-bold mb-[20px]'>YOUR ORDER</p>
@@ -144,7 +88,7 @@ const Checkout = ({ data }: PropsType) => {
                         <div className='px-[50px] py-[90px] flex flex-col items-center'>
                             <FcOk className='text-8xl mb-5' />
                             <p className='my-2 text-2xl text-[#222529] font-medium'>Successfully Placed The Order</p>
-                            <p className='text-[14px] text-[#222529] text-center'><b>Order number: 2017182818828182881</b>, Please confirm the order within 7 days.Otherwise your order will be canceled.</p>
+                            <p className='text-[14px] text-[#222529] text-center'><b>Order number: #2017182818</b>, Please confirm the order within 7 days.Otherwise your order will be canceled.</p>
                             <div className='mt-6 flex gap-4'>
                                 <button className='bg-[#F4F4F4] hover:bg-[#08C] text-inherit hover:text-white duration-500 px-[25px] leading-10 text-[13px] font-bold'>Browse Products</button>
                                 <button className='bg-[#222529] hover:bg-[#34393f] text-white hover:text-white duration-500 px-[25px] leading-10 text-[13px] font-bold'>My Order History</button>

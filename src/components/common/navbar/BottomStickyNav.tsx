@@ -29,7 +29,6 @@ const BottomStickyNav = () => {
         };
     }, [x]);
 
-
     return (
         <div className={`${isFixed ? `${styles.myFixed}` : `${styles.mySticky}`} hidden lg:block duration-500 left-0 right-0 py-[10px] z-30 bg-white border-b border-b-[#f4f4f4]`} ref={navRef}>
             <div className='max-w-[1200px] mx-auto'>
@@ -37,7 +36,7 @@ const BottomStickyNav = () => {
                     <ul className='flex gap-[35px] text-[12px] font-semibold'>
                         <li className=' border-t-[3px] duration-500 border-[#08C] z-20 py-[20px] cursor-pointer'>HOME</li>
                         <li className={`border-transparent gap-1 border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] relative cursor-pointer flex items-center ${styles['lang-title']}`}>
-                            <Link href={'/products'}><span>CATEGORIES</span></Link>
+                            <Link className='hover:no-underline focus:no-underline hover:text-[#222529]' href={'/products'}><span>CATEGORIES</span></Link>
                             <MdOutlineKeyboardArrowDown />
                             <ul className={`absolute z-1 -left-[10px] flex flex-col -right-[10px] shadow-md duration-500 ${styles['lang-dropdown']}`}>
                                 {categories.map((item, index) => <li key={index}>{item.name}</li>)}
@@ -59,7 +58,7 @@ const BottomStickyNav = () => {
                     </span>
                 </nav>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -6,16 +6,16 @@ import { IoIosArrowForward } from 'react-icons/io';
 const BreadCrumpNavigator = ({ paths }: { paths: string[]; }) => {
     return (
         <div className='py-[10px] px-[10px] text-[#777] text-[12px] flex gap-[12px] items-center'>
-            <Link href={'/'}>
+            <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/'}>
                 <AiOutlineHome className='text-lg hover:text-[#08c] duration-500 cursor-pointer' />
             </Link>
             {paths.map((item, i) => {
                 if (i == paths.length) {
-                    return <Link href={`/${item.toLowerCase()}`}><span key={i} className='uppercase'>{item}</span></Link>;
+                    return <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={`/${item.toLowerCase()}`}><span key={i} className='uppercase'>{item.split('-').join(' ')}</span></Link>;
                 } else {
                     return <React.Fragment key={i}>
                         <IoIosArrowForward className='' />
-                        <Link href={`/${item.toLowerCase()}`}><span className='uppercase'>{item}</span></Link>
+                        <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={`/${paths.slice(0, i + 1).map(each => each.toLowerCase()).join('/')}`}><span className='uppercase'>{item.split('-').join(' ')}</span></Link>
                     </React.Fragment>;
                 }
             })}
