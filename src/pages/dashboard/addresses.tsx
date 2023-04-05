@@ -42,8 +42,8 @@ const Addresses = ({ data }: PropsType) => {
             </Head>
             <DashboardLayout>
                 <BreadCrumpNavigator paths={['dashboard', 'addresses']} />
-                <div className='py-5'>
-                    <ShippingBillingForm data={data} >
+                <div className='py-5 px-0 md:px-[20px]'>
+                    <ShippingBillingForm notes={false} data={data} >
                         <div className='flex justify-end mt-4'>
                             <button className='bg-[#222529] hover:bg-[#34393f] text-white hover:text-white duration-500 px-[24px] py-[15px] leading-5 text-[17px] font-bold'>Save Address</button>
                         </div>

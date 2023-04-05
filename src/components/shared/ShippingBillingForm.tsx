@@ -2,7 +2,7 @@ import React from 'react';
 import { FormControl, FormLabel, Input, Select, Textarea } from '@chakra-ui/react';
 
 
-const ShippingBillingForm = ({ data, children }: {
+const ShippingBillingForm = ({ data, children, notes }: {
     data: {
         states: {
             abbreviation: string;
@@ -10,6 +10,7 @@ const ShippingBillingForm = ({ data, children }: {
         }[];
     },
     children?: React.ReactNode;
+    notes: boolean;
 }) => {
     return (
         <>
@@ -63,12 +64,12 @@ const ShippingBillingForm = ({ data, children }: {
                         <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
                     </FormControl>
                 </div>
-                <div>
+                {notes ? <div>
                     <FormControl>
                         <FormLabel><span className='text-[14px] text-[#777] font-medium'>Order notes (optional)</span></FormLabel>
                         <Textarea resize={'none'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} py={'3'} height={'2xs'} color={'option.400'} />
                     </FormControl>
-                </div>
+                </div> : null}
             </form>
 
 

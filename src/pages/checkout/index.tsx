@@ -48,7 +48,7 @@ const Checkout = ({ data }: PropsType) => {
                 !doneCheckout ? <CartLayout route='checkout'>
                     <div className='flex flex-col justify-start items-start lg:flex-row gap-[20px] mt-10'>
                         <div className='checkout-form w-[100%] lg:w-[60%] px-[25px] lg:px-0'>
-                            <ShippingBillingForm data={data} />
+                            <ShippingBillingForm notes data={data} />
                         </div>
                         <div className='side-checkout-card w-[85%] mx-auto lg:w-[40%] border-2 border-[#E7E7E7] px-[32px] pt-[28px] pb-[31px]'>
                             <p className='text-base font-bold mb-[20px]'>YOUR ORDER</p>

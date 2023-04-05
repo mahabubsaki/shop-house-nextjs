@@ -1,5 +1,7 @@
-import Link from 'next/link';
+
+import CustomDashboardLink from '@/components/helpers/CustomDashboardLink';
 import React from 'react';
+import { HiLogout } from 'react-icons/hi';
 import UserLayout from './UserLayout';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
@@ -10,11 +12,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
                     <div className='w-[100%] lg:w-[25%]'>
                         <p className='mb-[15px] text-xl font-bold text-[#222529]'>My Dashboard</p>
                         <div className='flex flex-col'>
-                            {['Orders', 'Wishlist', 'Addresses', 'Account Details', 'Manage Products', 'Manage Categories', 'Manage Orders', 'Manage Users'].map(item =>
-                                <p className='pt-[13px] text-[14px] leading-[14px] text-[#777] pb-[15px] border-b border-[#E7E7E7] cursor-pointer hover:text-[#08c] duration-500'><Link href={`/dashboard/${item.split(' ').map(each => each.toLowerCase()).join('-')}`} className='hover:no-underline focus:no-underline hover:text-[#08c] '>
+                            {['Orders', 'Wishlist', 'Addresses', 'Reviews', 'Account Details', 'Manage Products', 'Manage Categories', 'Manage Orders', 'Manage Users'].slice(0, 5).map(item =>
+                                <p key={item} className='pt-[13px] text-[14px] leading-[14px] text-[#777] pb-[15px] border-b border-[#E7E7E7] cursor-pointer hover:text-[#08c] duration-500'><CustomDashboardLink href={`/dashboard/${item.split(' ').map(each => each.toLowerCase()).join('-')}`} className='hover:no-underline focus:no-underline hover:text-[#08c] '>
                                     {item}
-                                </Link></p>
+                                </CustomDashboardLink></p>
                             )}
+                            <button className='bg-[#222529] hover:bg-[#34393f] my-4 text-white hover:text-white duration-500 flex justify-center items-center gap-2 px-[25px] leading-10 text-[13px] font-bold'><span>Logout</span> <HiLogout className='text-2xl' /></button>
                         </div>
                     </div>
                     <div className='w-[100%] lg:w-[75%] py-8'>
