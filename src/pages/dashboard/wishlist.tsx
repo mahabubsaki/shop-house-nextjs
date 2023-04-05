@@ -1,5 +1,6 @@
 
 import BreadCrumpNavigator from '@/components/shared/BreadCrumpNavigator';
+import DashboardLayout from '@/layouts/DashboardLayout';
 import UserLayout from '@/layouts/UserLayout';
 import { tempMyWishlist } from '@/utils/constants';
 import { priceModifier } from '@/utils/price_modifier';
@@ -19,9 +20,9 @@ const WishList = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon1.ico" />
             </Head>
-            <UserLayout>
+            <DashboardLayout>
                 <div className='max-w-[1200px] mx-auto'>
-                    <BreadCrumpNavigator paths={['wishlist']} />
+                    <BreadCrumpNavigator paths={['dashboard', 'wishlist']} />
                     <p className='my-[40px] text-[#222529] text-[27px] md:text-[30px] font-bold'>My Wishlist</p>
                     <div>
                         <TableContainer>
@@ -69,7 +70,7 @@ const WishList = () => {
                         </TableContainer>
                     </div>
                 </div>
-            </UserLayout>
+            </DashboardLayout>
         </>
     );
 };
