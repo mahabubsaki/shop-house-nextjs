@@ -21,8 +21,9 @@ const WishList = () => {
                 <link rel="icon" href="/favicon1.ico" />
             </Head>
             <DashboardLayout>
-                <div className='max-w-[1200px] mx-auto'>
-                    <BreadCrumpNavigator paths={['dashboard', 'wishlist']} />
+
+                <BreadCrumpNavigator paths={['dashboard', 'wishlist']} />
+                <div>
                     <p className='my-[40px] text-[#222529] text-[27px] md:text-[30px] font-bold'>My Wishlist</p>
                     <div>
                         <TableContainer>

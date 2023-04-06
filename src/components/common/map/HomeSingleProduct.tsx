@@ -42,8 +42,8 @@ const HomeSingleProduct = ({ item: { category, discount, image, isHot, name, pri
                 <p className='uppercase text-[9px] md:text-[10px] hover:text-[#08c] duration-500 cursor-pointer text-[#777]'>CATEGORY : {category}</p>
                 <p title={name} className='text-[13.5px] hover:text-[#08c] duration-500 cursor-pointer truncate w-full md:text-[15px] text-[#222529]'>{name}</p>
                 <div className='mb-3 flex'>
-                    {new Array(rating).fill(0).map((item, i) => <AiFillStar key={i} className='text-[#6E7F80]' />)}
-                    {new Array(5 - rating).fill(0).map((item, i) => <AiOutlineStar key={i} className='text-[#00000029]' />)}
+                    {new Array(rating).fill(0).map((_, i) => <AiFillStar key={i} className='text-[#6E7F80]' />)}
+                    {new Array(5 - rating).fill(0).map((_, i) => <AiOutlineStar key={i} className='text-[#00000029]' />)}
                 </div>
                 <div className='flex gap-1 mb-[14px] items-center'>
                     {discount ? <span className={`text-[12.5px] text-[#999999] decoration-[#999999] md:text-[14px] line-through`}>${price.toFixed(2)}</span> : null}

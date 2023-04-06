@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
-function CustomSelect({ options, width, defaults }: { options: string[], width: string, defaults: string; }) {
+function CustomSelect({ options, width, defaults, handleOnSelectChange }: { options: string[], width: string, defaults: string; handleOnSelectChange?: (option: string) => void; }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaults);
 
-
+  useEffect(() => {
+    if (handleOnSelectChange) {
+      handleOnSelectChange(selectedOption);
+    }
+  }, [selectedOption]);
 
   useEffect(() => {
     const handleDocumentClick = () => {
@@ -19,7 +23,9 @@ function CustomSelect({ options, width, defaults }: { options: string[], width: 
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
+
     setIsOpen(false);
+
   };
 
 

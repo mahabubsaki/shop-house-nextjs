@@ -32,7 +32,12 @@ html{
 /* .swiper-button-next::after { color: red, } */
 
 
-
+#nprogress .bar {
+  background: red !important;
+}
+#nprogress .spinner {
+  border-top-color: red !important;
+}
 
 
 

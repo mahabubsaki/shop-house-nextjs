@@ -30,7 +30,7 @@ const Orders = () => {
                                     <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center '>ORDER <br /> ID</p></Th>
                                     <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center '>ORDER <br /> PLACED</p></Th>
                                     <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center'>STATUS</p></Th>
-                                    <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center'>PRODUCTS <br /> COUNT</p></Th>
+                                    <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center'>UNITS</p></Th>
                                     <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center'>GRAND <br /> TOTAL</p></Th>
                                     <Th><p className='text-[#222529] py-[10px] text-[14px] font-bold text-center'></p></Th>
                                 </Tr>
@@ -87,6 +87,7 @@ const Orders = () => {
                                                     {item.status === 'paid' ? <MenuItem>Track Order</MenuItem> : null}
                                                     {item.status === 'canceled' ? <MenuItem>Delete Order</MenuItem> : null}
                                                     {(item.status === 'canceled' || item.status === 'delivered') ? <MenuItem>Give Feedback</MenuItem> : null}
+
                                                 </MenuList>
                                             </Menu>
                                         </div>

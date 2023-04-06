@@ -18,7 +18,7 @@ const AccountDetails = () => {
             </Head>
             <DashboardLayout>
                 <BreadCrumpNavigator paths={['dashboard', 'account-details']} />
-                <div className='py-[20px]'>
+                <div className='py-[20px] px-0 md:px-[20px]'>
                     <p className='flex items-center text-[22px] gap-[10px] ml-1 mb-4 text-[#222529] font-bold'><BiUser className='text-[#D3D3D4] text-4xl' /><span>Account Details</span></p>
                     <form autoComplete='new-password' onSubmit={(e) => e.preventDefault()} className='py-[10px] flex flex-col gap-[18px]'>
                         <div className='flex gap-[20px] flex-col sm:flex-row'>
