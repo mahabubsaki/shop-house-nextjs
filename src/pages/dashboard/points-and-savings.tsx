@@ -1,42 +1,45 @@
 import BreadCrumpNavigator from '@/components/shared/BreadCrumpNavigator';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import Head from 'next/head';
+import React from 'react';
 import { priceModifier } from '@/utils/price_modifier';
 import { Badge, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
-import Head from 'next/head';
-import React from 'react';
+import CustomDarkButton from '@/components/helpers/CustomDarkButton';
 
-const Refunds = () => {
+const PointsHistory = () => {
     return (
         <>
             <Head>
-                <title>{`My Refunds | SHOP House`}</title>
+                <title>{`Points History | SHOP House`}</title>
                 <meta name='description' content={`Find the products you need and want online with ease. Shop our extensive selection of items, compare prices, and make purchases with confidence. Get the best deals on the latest trends, brands, and styles. Free shipping available on eligible orders. Start shopping now!`} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon1.ico" />
             </Head>
             <DashboardLayout>
-                <BreadCrumpNavigator paths={['Dashboard', 'Refunds']} />
+                <BreadCrumpNavigator paths={['Dashboard', 'Points-And-Savings']} />
                 <div>
-                    <p className='flex mt-2 mb-4 text-[22px] font-bold gap-[10px] items-center'>My Refunds</p>
+                    <p className='flex mt-2 mb-4 text-[22px] font-bold gap-[10px] items-center'>Points And Savings</p>
                     <TableContainer>
                         <Table variant='striped'>
 
                             <Thead>
                                 <Tr>
-                                    <Th>Product</Th>
+                                    <Th>ORDER ID</Th>
                                     <Th>Date</Th>
-                                    <Th>Units</Th>
-                                    <Th>SubTotal</Th>
-                                    <Th>Status</Th>
+                                    <Th>Points Earned</Th>
+                                    <Th>Savings</Th>
+                                    <Th>Discount Source</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {[{ name: 'Mens Leather Belt', units: 2, subtotal: 500, status: 'In Progress', date: '2023-04-07' }, { name: 'Mens T-Shirt', units: 1, subtotal: 100, status: 'Completed', date: '2023-04-07' }].map(item => <Tr>
+                                {[{ orderId: '2017182818', points: 28, savings: 9, source: 'Coupon', date: '2023-04-07' }, { orderId: '2017182418', points: 68, savings: 12, source: 'Promo Code', date: '2023-04-07' }, { orderId: '2017182418', points: 68, savings: 12, source: 'Cashback', date: '2023-04-07' }].map(item => <Tr>
                                     <Td>
-                                        <div>
-                                            <p className='text-[14px] text-[#08c] cursor-pointer underline '>{item.name}</p>
-                                        </div>
+                                        <Badge colorScheme={'teal'}>
+                                            <div>
+                                                <p className='text-[14px]'>#{item.orderId}</p>
+                                            </div>
+                                        </Badge>
                                     </Td>
                                     <Td>
                                         <div>
@@ -45,20 +48,27 @@ const Refunds = () => {
                                     </Td>
                                     <Td>
                                         <div>
-                                            <p className='text-[14px] text-[#222529]'>{item.units}</p>
+                                            <p className='text-[14px] text-[#222529]'>{item.points}</p>
                                         </div>
                                     </Td>
                                     <Td>
                                         <div>
-                                            <p className='text-[14px] text-[#222529]'>${priceModifier(item.subtotal)}</p>
+                                            <p className='text-[14px] text-[#222529]'>${priceModifier(item.savings)}</p>
                                         </div>
                                     </Td>
                                     <Td>
-                                        <Badge fontSize={'sm'} colorScheme={item.status === 'In Progress' ? 'blue' : 'green'} variant={'solid'}>
-                                            <div className='text-center text-[14px] text-white'>
-                                                <p>{item.status}</p>
+                                        <Badge colorScheme={'purple'}>
+                                            <div className='font-bold  text-[14px] text-[#222529'>
+                                                <p>{item.source}</p>
                                             </div>
                                         </Badge>
+                                    </Td>
+                                    <Td>
+                                        <div className='inline-block'>
+                                            <CustomDarkButton>
+                                                View Details
+                                            </CustomDarkButton>
+                                        </div>
                                     </Td>
                                 </Tr>)}
 
@@ -72,4 +82,4 @@ const Refunds = () => {
     );
 };
 
-export default Refunds;
+export default PointsHistory;

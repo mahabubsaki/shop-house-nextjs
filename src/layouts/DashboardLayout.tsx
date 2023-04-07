@@ -18,7 +18,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
                                         Dashboard
                                     </CustomDashboardLink>
                                 </p>
-                                {['Orders', 'Wishlist', 'Addresses', 'Refunds', 'Points History', 'Savings', 'Coupouns', 'Reviews', 'Account Details', 'Manage Products', 'Manage Categories', 'Manage Orders', 'Manage Users'].slice(0, 9).map(item =>
+                                {['Orders', 'Wishlist', 'Addresses', 'Refunds', 'Points and Savings', 'Coupouns', 'Reviews', 'Account Details', 'Manage Products', 'Manage Categories', 'Manage Orders', 'Manage Users'].slice(0, 8).map(item =>
                                     <p key={item} className=' text-[14px] leading-[14px] text-[#777]  border-b border-[#E7E7E7] cursor-pointer hover:text-[#08c] duration-500'><CustomDashboardLink href={`/dashboard/${item.split(' ').map(each => each.toLowerCase()).join('-')}`} className='hover:no-underline inline-block pt-[13px] pb-[15px]  focus:no-underline hover:text-[#08c] '>
                                         {item}
                                     </CustomDashboardLink></p>
