@@ -4,6 +4,7 @@ import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 import styles from '@/styles/TopNav.module.css';
 import { currencies, languages } from '@/utils/constants';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 
@@ -17,9 +18,11 @@ const TopNav = () => {
                 <div className='flex gap-[28px] items-center justify-between  w-full sm:w-auto'>
                     <div className='hidden lg:block'>
                         <ul className='flex  tracking-wide leading-4 items-center gap-6'>
-                            <li>My Account</li>
+
+                            <li>
+                                <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/dashboard'}><span>Dashboard</span></Link>
+                            </li>
                             <li>About Us</li>
-                            <li>Blog</li>
                             <li>My Wishlist</li>
                             <li>Cart</li>
                             <li>Log In</li>

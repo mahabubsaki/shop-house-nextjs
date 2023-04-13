@@ -201,9 +201,6 @@ const MiddleNav = () => {
                                         <Nav.Item eventKey="4" className='border-b border-[#242527]'>
                                             <span className=' relative left-[-35px]'>SPECIAL OFFERS!</span>
                                         </Nav.Item>
-                                        <Nav.Item eventKey="5" className='border-b border-[#242527]'>
-                                            <span className=' relative left-[-35px]'>BLOGS</span>
-                                        </Nav.Item>
                                         <Nav.Item eventKey="6" className='border-b border-[#242527]'>
                                             <span className=' relative left-[-35px]'>MY ACCOUNT</span>
                                         </Nav.Item>

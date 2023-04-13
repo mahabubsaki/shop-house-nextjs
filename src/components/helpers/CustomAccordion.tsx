@@ -86,7 +86,7 @@ const CustomItem = ({ item, pi, checkedItems, setCheckedItems }: { item: { name:
 };
 
 const CustomAccordion = ({ section, allCategories, colors, sizes }: { section: string, allCategories?: { name: string, subCategory: string[], }[], colors?: string[], sizes?: string[]; }) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [price, setPrice] = useState([0, 1000]);
     const [selectedColor, setSelectedColor] = useState<string[]>([colors?.[0] ? colors[0] : '']);

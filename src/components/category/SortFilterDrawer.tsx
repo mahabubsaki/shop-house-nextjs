@@ -14,7 +14,7 @@ const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                 <DrawerCloseButton />
                 <aside className='mt-2'>
                     <div className='px-5'>
-                        <Accordion allowToggle defaultIndex={[0, 1, 2, 3]} allowMultiple>
+                        <Accordion allowToggle allowMultiple>
                             <CustomAccordion section='category' allCategories={
                                 [
                                     { name: 'Clothing', subCategory: ["Shirts", "Pants", "Kid's"] },

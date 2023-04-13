@@ -49,7 +49,6 @@ const BottomStickyNav = () => {
                                 {brands.map((item, index) => <li key={index}>{item}</li>)}
                             </ul>
                         </li>
-                        <li className='border-transparent border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] cursor-pointer'>BLOGS</li>
                         <li className='border-transparent border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] cursor-pointer'>ABOUT US</li>
                         <li className='border-transparent border-t-[3px] cursor-pointer duration-500 hover:border-[#08C] z-20 py-[20px]'>CONTACT US</li>
                     </ul>

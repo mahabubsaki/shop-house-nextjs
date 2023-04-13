@@ -32,7 +32,7 @@ const Dahboard = () => {
                                 <p className='text-3xl font-bold my-3'>{parseInt(priceModifier(27))}</p>
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/6815/6815043.png" className='h-full' alt="" />
                             </div>
                         </div>
@@ -43,7 +43,7 @@ const Dahboard = () => {
                                 <p className='text-3xl font-bold my-3'>${priceModifier(696 / 27)}</p>
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/1611/1611302.png" className='h-full' alt="" />
                             </div>
                         </div>
@@ -54,7 +54,7 @@ const Dahboard = () => {
 
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/4266/4266200.png" className='h-full' alt="" />
                             </div>
                         </div>
@@ -65,7 +65,7 @@ const Dahboard = () => {
 
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/9138/9138369.png" className='h-full' alt="" />
                             </div>
                         </div>
@@ -76,7 +76,7 @@ const Dahboard = () => {
 
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/3427/3427822.png" className='h-full' alt="" />
                             </div>
                         </div>
@@ -87,7 +87,7 @@ const Dahboard = () => {
 
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/1225/1225275.png?w=826&t=st=1680796101~exp=1680796701~hmac=8a3e2ae795b34928ab03593beeb37e820d84f467b771c3891efbe134dd578752" className='h-full' alt="" />
                             </div>
                         </div>
@@ -98,7 +98,7 @@ const Dahboard = () => {
 
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/8049/8049428.png" className='h-full' alt="" />
                             </div>
                         </div>
@@ -109,7 +109,7 @@ const Dahboard = () => {
 
 
                             </div>
-                            <div className='h-[100px] my-auto'>
+                            <div className='h-[70px] my-auto'>
                                 <img src="https://cdn-icons-png.flaticon.com/512/8754/8754417.png" className='h-full' alt="" />
                             </div>
                         </div>
