@@ -33,6 +33,32 @@ const ContactUs = () => {
             text: 'Mon - Sun / 9:00AM - 8:00PM'
         }
     ];
+    const faq = [
+        {
+            question: 'What payment methods do you accept?',
+            answer: '<p>We accept all major credit cards (Visa, Mastercard, American Express, Discover) as well as PayPal,Bkash and Nagad.</p>'
+        },
+        {
+            question: 'What is your shipping policy?',
+            answer: '<p>We offer free standard shipping on all orders over $100. For orders under $100, standard shipping is a flat rate of $5.99.Which Orders typically arrive within 5-7 business days, but this can vary depending on the shipping destination and any unforeseen delays. We also offer expedited shipping options like express shipping for an additional fee and In store pickup for free cost.</p>'
+        },
+        {
+            question: 'What is your return policy?',
+            answer: "<p>We offer a 7-day return policy for all items purchased on our website. If you're not satisfied with your purchase for any reason, you can return it for a full refund or exchange. Items must be in new, unused condition with all original packaging and tags attached.</p>"
+        },
+        {
+            question: 'Can I track my order and receive updates?',
+            answer: '<p>Yes, you can track your order by logging into your account, going to dashboard select orders and clicking on the <b>Actions > View Details</b>. We will also send you email updates with tracking information as your order moves through the shipping process.</p>'
+        },
+        {
+            question: 'How do I contact customer support?',
+            answer: '<p>You can reach our customer support team by emailing <b>mail@shophouse.com</b> or by calling our  number at <b>+8801234567891</b>. Our customer support team is available Monday through Sunday from 9am to 8pm GMT+6.</p>'
+        },
+        {
+            question: 'Do you offer any discounts or promotions?',
+            answer: '<p>Yes, we occasionally offer discounts and promotions to both first-time customers and regular shoppers. To stay up-to-date on our latest deals, sign up for our email newsletter and follow us on social media.</p>'
+        },
+    ];
     return (
         <>
             <Head>
@@ -56,7 +82,7 @@ const ContactUs = () => {
                         <p className='text-[14px] text-[#777] mb-4'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus, quaerat? Laudantium, assumenda voluptate beatae maiores placeat perferendis adipisci ex nobis temporibus minus provident dolorum quam non ea, odit rem. Dolor.</p>
                     </div>
                     <div className='px-[10px] mb-[40px] gap-x-5 gap-y-8 grid grid-flow-dense' style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
-                        {contactinfo.map(({ icon: Icons, text, title }) => <div className='flex flex-col items-center'>
+                        {contactinfo.map(({ icon: Icons, text, title }, index) => <div key={index} className='flex flex-col items-center'>
                             {Icons}
                             <p className='text-[20px] font-bold mb-1 leading-5 text-[#222529]'>{title}</p>
                             <p className='text-[#777] text-[14px] leading-5 mb-5'>{text}</p>
@@ -92,20 +118,17 @@ const ContactUs = () => {
                         <div className='w-full lg:w-1/2'>
                             <p className='text-[24px] text-[#222529] font-bold mt-[60px] mb-[20px]'>Frequently Asked Questions</p>
                             <Accordion allowToggle>
-                                {new Array(6).fill(0).map((_, index) => <AccordionItem key={index}>
+                                {faq.map(({ question, answer }, index) => <AccordionItem key={index}>
                                     <h2>
                                         <AccordionButton>
                                             <Box as="span" fontSize={'16px'} fontWeight={'semibold'} flex='1' textAlign='left'>
-                                                Section 1 title
+                                                {question}
                                             </Box>
                                             <AccordionIcon />
                                         </AccordionButton>
                                     </h2>
                                     <AccordionPanel color={'#777'} fontSize={'14px'} pb={4}>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.
+                                        <p dangerouslySetInnerHTML={{ __html: answer }}></p>
                                     </AccordionPanel>
                                 </AccordionItem>)}
                             </Accordion>
