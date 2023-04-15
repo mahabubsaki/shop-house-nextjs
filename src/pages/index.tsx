@@ -11,6 +11,7 @@ import LatestNews from '@/components/home/LatestNews';
 import BrandsMarquee from '@/components/home/BrandsMarquee';
 
 
+
 export default function Home() {
   return (
     <>

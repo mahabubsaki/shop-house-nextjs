@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import 'nprogress/nprogress.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { Toaster } from 'react-hot-toast';
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -40,6 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <ChakraProvider theme={customTheme}>
         <Component {...pageProps} />
+        <Toaster />
       </ChakraProvider>
     </Provider>
   );
