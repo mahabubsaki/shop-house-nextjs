@@ -117,9 +117,9 @@ const ExternelLogin = ({ children }: { children: React.ReactNode; }) => {
         try {
             setCaptchaLoading(true);
             const response = await confirmationObj?.confirm(otp);
-
+            console.log(response);
             if (response?.user) {
-
+                toast.success("Thanks for login");
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
