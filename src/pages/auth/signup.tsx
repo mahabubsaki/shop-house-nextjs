@@ -1,12 +1,9 @@
-import CustomLightButton from '@/components/helpers/CustomLightButton';
 import ExternelLogin from '@/components/signup/ExternelLogin';
-import { auth, facebookProvider, githubProvider, googleProvider, microsoftProvider, twitterProvider, yahooProvider } from '@/configs/firebase.init';
 import UserLayout from '@/layouts/UserLayout';
 import { Button, FormControl, FormHelperText, FormLabel, Input, Select } from '@chakra-ui/react';
-import { signInWithPopup } from 'firebase/auth';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useRef } from 'react';
+import React from 'react';
 
 const Signup = () => {
     return (
@@ -63,6 +60,12 @@ const Signup = () => {
                             <FormControl isRequired>
                                 <FormLabel><span className='text-[14px] text-[#777] font-medium'>Email</span></FormLabel>
                                 <Input placeholder={'admin@gmail.com'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl isRequired>
+                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Password</span></FormLabel>
+                                <Input type={'password'} placeholder={'12345678'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
                             </FormControl>
                         </div>
                         <div>
