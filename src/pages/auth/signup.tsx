@@ -1,11 +1,47 @@
 import ExternelLogin from '@/components/signup/ExternelLogin';
+import uploadImgToCloudinary from '@/configs/cloudinary.config';
+import uploadImgToImgBB from '@/configs/imgbb.config';
 import UserLayout from '@/layouts/UserLayout';
 import { Button, FormControl, FormHelperText, FormLabel, Input, Select } from '@chakra-ui/react';
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { toast } from 'react-hot-toast';
+import { FaUpload } from 'react-icons/fa';
 
 const Signup = () => {
+    const [imageLink, setImageLink] = useState<null | string>(null);
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setImageFile(file);
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                setImageLink(fileReader.result as string);
+            };
+        }
+    };
+    const handleEmailSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+        if (imageFile && imageLink) {
+            try {
+                const data = await uploadImgToCloudinary(imageFile);
+                console.log(data);
+            } catch (err: unknown) {
+                if (err instanceof Error) {
+                    console.log(err);
+                    toast.error(err.message);
+                }
+            }
+
+        } else {
+            toast.error("Avatar not selected");
+        }
+    };
     return (
         <>
             <Head>
@@ -18,9 +54,7 @@ const Signup = () => {
                 <div className='max-w-[clamp(320px,100%,600px)] mx-auto px-[30px] bg-[#fdfdfd] shadow-md rounded-lg my-[50px] border py-5'>
                     <h1 className='text-2xl text-[#222529] font-bold text-center'>Sign Up</h1>
                     <p className='text-base text-[#777] text-center'>Create a new account</p>
-                    <form autoComplete='new-password' onSubmit={(e) => {
-                        e.preventDefault();
-                    }} className='py-[10px] flex flex-col gap-[18px]'>
+                    <form autoComplete='new-password' onSubmit={handleEmailSignUp} className='py-[10px] flex flex-col gap-[18px]'>
                         <div>
                             <FormControl isRequired>
                                 <FormLabel><span className='text-[14px] text-[#777] font-medium'>First Name</span></FormLabel>
@@ -39,6 +73,16 @@ const Signup = () => {
                                 <Input placeholder='Destiny YT' autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
                                 <FormHelperText><span className='text-[#777] text-[13px]'>
                                     This will be how your name will be displayed in the account section and in reviews</span></FormHelperText>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl>
+                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Avatar</span></FormLabel>
+                                <Input onChange={handleFileInputChange} ref={fileInputRef} hidden type={'file'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
+                                <Button onClick={() => (fileInputRef.current) && fileInputRef.current.click()} transitionDuration={'500ms'} display={'flex'} alignItems='center' gap={'15px'} colorScheme={'dot'} opacity='100%' color={'white'} _hover={{ opacity: '90%', color: 'black' }} width={'full'}><FaUpload className='relative -top-[2px]' />{imageLink ? 'Change Avatar' : 'Choose Avatar'}</Button>
+                                <img src={imageLink ? imageLink : 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg'} className='h-[128px] w-[128px] rounded-full  mt-4 border mx-auto' />
+
+
                             </FormControl>
                         </div>
                         <div>

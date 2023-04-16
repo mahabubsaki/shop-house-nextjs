@@ -1,15 +1,33 @@
 import ExternelLogin from '@/components/signup/ExternelLogin';
+import { auth } from '@/configs/firebase.init';
 import UserLayout from '@/layouts/UserLayout';
-import { Button, FormControl, FormHelperText, FormLabel, Input, Select } from '@chakra-ui/react';
+import { Button, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, useDisclosure } from '@chakra-ui/react';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 const Signup = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const resetMail = e.currentTarget.resetMail?.value || '';
+        try {
+            const response = await sendPasswordResetEmail(auth, resetMail);
+            toast.success(`Reset password link sent to ${resetMail}`);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.error(err.message);
+            }
+        } finally {
+            onClose();
+        }
+    };
     return (
         <>
             <Head>
-                <title>{`Sign Up | SHOP House`}</title>
+                <title>{`Log In | SHOP House`}</title>
                 <meta name='description' content={`Shop till you drop with our e-commerce platform! Review your shopping cart and checkout with ease. Enjoy secure payment and fast delivery options. Start shopping today!`} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon1.ico" />
@@ -40,7 +58,7 @@ const Signup = () => {
 
                         <Button type='submit' colorScheme={'cyan'}>Log In</Button>
                     </form>
-                    <div className='flex justify-end'><p className='font-bold text-right cursor-pointer text-[#08c]'>Forget Password?</p></div>
+                    <div className='flex justify-end'><p onClick={onOpen} className='font-bold text-right cursor-pointer text-[#08c]'>Forget Password?</p></div>
                     <p className='my-3 text-[14px] text-center text-[#222529]'>
                         New to Shophouse E-commerce? <span className='text-[#08c] font-bold'><Link className='hover:no-underline' href={'/auth/signup'}>SIGN UP</Link></span> now
                     </p>
@@ -51,6 +69,36 @@ const Signup = () => {
                     </p>
                     <ExternelLogin>Continue with Phone</ExternelLogin>
                 </div>
+                <Modal
+                    isCentered
+                    onClose={onClose}
+                    isOpen={isOpen}
+                    motionPreset='slideInBottom'
+                    closeOnOverlayClick={false}
+                >
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Enter your email for reset password</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+
+                            <form autoComplete='new-password' onSubmit={handleResetPassword} className='py-[10px] flex flex-col gap-[18px]'>
+
+
+
+
+                                <div>
+                                    <FormControl isRequired>
+                                        <FormLabel><span className='text-[14px] text-[#777] font-medium'>Email</span></FormLabel>
+                                        <Input name='resetMail' placeholder={'admin@gmail.com'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
+                                    </FormControl>
+                                </div>
+
+                                <Button type='submit' colorScheme={'cyan'}>Reset Password</Button>
+                            </form>
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
             </UserLayout>
         </>
     );

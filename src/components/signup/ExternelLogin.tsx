@@ -2,7 +2,7 @@ import { auth, facebookProvider, githubProvider, googleProvider, microsoftProvid
 import { FormControl, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, PinInput, PinInputField, Spinner, useDisclosure } from '@chakra-ui/react';
 import { AuthProvider, ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from 'firebase/auth';
 import { E164Number } from 'libphonenumber-js/types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FaFacebook, FaGithub, FaGoogle, FaMicrosoft, FaPhone, FaTwitter, FaYahoo } from 'react-icons/fa';
 import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
