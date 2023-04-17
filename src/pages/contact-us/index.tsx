@@ -36,27 +36,27 @@ const ContactUs = () => {
     const faq = [
         {
             question: 'What payment methods do you accept?',
-            answer: '<p>We accept all major credit cards (Visa, Mastercard, American Express, Discover) as well as PayPal,Bkash and Nagad.</p>'
+            answer: 'We accept all major credit cards (Visa, Mastercard, American Express, Discover) as well as PayPal,Bkash and Nagad.'
         },
         {
             question: 'What is your shipping policy?',
-            answer: '<p>We offer free standard shipping on all orders over $100. For orders under $100, standard shipping is a flat rate of $5.99.Which Orders typically arrive within 5-7 business days, but this can vary depending on the shipping destination and any unforeseen delays. We also offer expedited shipping options like express shipping for an additional fee and In store pickup for free cost.</p>'
+            answer: 'We offer free standard shipping on all orders over $100. For orders under $100, standard shipping is a flat rate of $5.99.Which Orders typically arrive within 5-7 business days, but this can vary depending on the shipping destination and any unforeseen delays. We also offer expedited shipping options like express shipping for an additional fee and In store pickup for free cost.'
         },
         {
             question: 'What is your return policy?',
-            answer: "<p>We offer a 7-day return policy for all items purchased on our website. If you're not satisfied with your purchase for any reason, you can return it for a full refund or exchange. Items must be in new, unused condition with all original packaging and tags attached.</p>"
+            answer: "We offer a 7-day return policy for all items purchased on our website. If you're not satisfied with your purchase for any reason, you can return it for a full refund or exchange. Items must be in new, unused condition with all original packaging and tags attached."
         },
         {
             question: 'Can I track my order and receive updates?',
-            answer: '<p>Yes, you can track your order by logging into your account, going to dashboard select orders and clicking on the <b>Actions > View Details</b>. We will also send you email updates with tracking information as your order moves through the shipping process.</p>'
+            answer: 'Yes, you can track your order by logging into your account, going to dashboard select orders and clicking on the Actions > View Details. We will also send you email updates with tracking information as your order moves through the shipping process.'
         },
         {
             question: 'How do I contact customer support?',
-            answer: '<p>You can reach our customer support team by emailing <b>mail@shophouse.com</b> or by calling our  number at <b>+8801234567891</b>. Our customer support team is available Monday through Sunday from 9am to 8pm GMT+6.</p>'
+            answer: 'You can reach our customer support team by emailing <b>mail@shophouse.com</b> or by calling our  number at +8801234567891. Our customer support team is available Monday through Sunday from 9am to 8pm GMT+6.'
         },
         {
             question: 'Do you offer any discounts or promotions?',
-            answer: '<p>Yes, we occasionally offer discounts and promotions to both first-time customers and regular shoppers. To stay up-to-date on our latest deals, sign up for our email newsletter and follow us on social media.</p>'
+            answer: 'Yes, we occasionally offer discounts and promotions to both first-time customers and regular shoppers. To stay up-to-date on our latest deals, sign up for our email newsletter and follow us on social media.'
         },
     ];
     return (
@@ -128,7 +128,7 @@ const ContactUs = () => {
                                         </AccordionButton>
                                     </h2>
                                     <AccordionPanel color={'#777'} fontSize={'14px'} pb={4}>
-                                        <p dangerouslySetInnerHTML={{ __html: answer }}></p>
+                                        <p>{answer}</p>
                                     </AccordionPanel>
                                 </AccordionItem>)}
                             </Accordion>

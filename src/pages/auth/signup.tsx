@@ -1,8 +1,12 @@
+import CustomChakraSelect from '@/components/helpers/CustomChakraSelect';
+import CustomInput from '@/components/helpers/CustomInput';
 import ExternelLogin from '@/components/signup/ExternelLogin';
 import uploadImgToCloudinary from '@/configs/cloudinary.config';
 import uploadImgToImgBB from '@/configs/imgbb.config';
 import UserLayout from '@/layouts/UserLayout';
-import { Button, FormControl, FormHelperText, FormLabel, Input, Select } from '@chakra-ui/react';
+import { signUpSchemas } from '@/schemas/yupSchema';
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from '@chakra-ui/react';
+import { useFormik } from 'formik';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState, useRef } from 'react';
@@ -13,6 +17,27 @@ const Signup = () => {
     const [imageLink, setImageLink] = useState<null | string>(null);
     const [imageFile, setImageFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const formInitialValues = {
+        firstName: '',
+        lastName: '',
+        userName: '',
+        avatar: null,
+        gender: '',
+        phoneNumber: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        dob: ''
+    };
+
+    const { values, touched, errors, handleBlur, handleChange, handleSubmit, setFieldValue } = useFormik({
+        initialValues: formInitialValues,
+        onSubmit: (values) => {
+            console.log(values);
+        },
+        validationSchema: signUpSchemas,
+    });
+
     const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -21,11 +46,12 @@ const Signup = () => {
             fileReader.readAsDataURL(file);
             fileReader.onload = () => {
                 setImageLink(fileReader.result as string);
+
+                setFieldValue('avatar', file);
             };
         }
     };
     const handleEmailSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-
         e.preventDefault();
         if (imageFile && imageLink) {
             try {
@@ -42,6 +68,7 @@ const Signup = () => {
             toast.error("Avatar not selected");
         }
     };
+    console.log(errors);
     return (
         <>
             <Head>
@@ -54,71 +81,77 @@ const Signup = () => {
                 <div className='max-w-[clamp(320px,100%,600px)] mx-auto px-[30px] bg-[#fdfdfd] shadow-md rounded-lg my-[50px] border py-5'>
                     <h1 className='text-2xl text-[#222529] font-bold text-center'>Sign Up</h1>
                     <p className='text-base text-[#777] text-center'>Create a new account</p>
-                    <form autoComplete='new-password' onSubmit={handleEmailSignUp} className='py-[10px] flex flex-col gap-[18px]'>
+                    <form autoComplete="off" onSubmit={handleSubmit} className='py-[10px] flex flex-col gap-[18px]'>
+                        <CustomInput isInvalid={!!errors.firstName && !!touched.firstName} handleBlur={handleBlur} handleChange={handleChange} value={values.firstName} type='text' name='firstName' inputLabel='First Name' placeholder='Mahabub' helper={<>
+                            {(!!errors.firstName && !!touched.firstName) ?
+                                <FormErrorMessage>{errors.firstName}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Enter your First Name</span></FormHelperText>}
+                        </>} />
+                        <CustomInput isInvalid={!!errors.lastName && !!touched.lastName} handleBlur={handleBlur} handleChange={handleChange} value={values.lastName} type='text' name='lastName' inputLabel='Last Name' placeholder='Saki' helper={<>
+                            {(!!errors.lastName && !!touched.lastName) ?
+                                <FormErrorMessage>{errors.lastName}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Enter your Last Name</span></FormHelperText>}
+
+                        </>} />
+                        <CustomInput isInvalid={!!errors.userName && !!touched.userName} handleBlur={handleBlur} handleChange={handleChange} value={values.userName} type='text' name='userName' inputLabel='User Name' placeholder='DestinyYT' helper={<>
+                            {(!!errors.userName && !!touched.userName) ?
+                                <FormErrorMessage>{errors.userName}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    This will be how your name will be displayed in the account section and in reviews</span></FormHelperText>}
+
+                        </>} />
                         <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>First Name</span></FormLabel>
-                                <Input placeholder='Mahabub' autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Last Name</span></FormLabel>
-                                <Input placeholder='Saki' autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Display Name</span></FormLabel>
-                                <Input placeholder='Destiny YT' autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                                <FormHelperText><span className='text-[#777] text-[13px]'>
-                                    This will be how your name will be displayed in the account section and in reviews</span></FormHelperText>
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl>
+                            <FormControl isInvalid={!!errors.avatar && !!touched.avatar}>
                                 <FormLabel><span className='text-[14px] text-[#777] font-medium'>Avatar</span></FormLabel>
-                                <Input onChange={handleFileInputChange} ref={fileInputRef} hidden type={'file'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
+                                <Input name='avatar' onChange={handleFileInputChange} ref={fileInputRef} hidden type={'file'} autoComplete="new-password" focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
                                 <Button onClick={() => (fileInputRef.current) && fileInputRef.current.click()} transitionDuration={'500ms'} display={'flex'} alignItems='center' gap={'15px'} colorScheme={'dot'} opacity='100%' color={'white'} _hover={{ opacity: '90%', color: 'black' }} width={'full'}><FaUpload className='relative -top-[2px]' />{imageLink ? 'Change Avatar' : 'Choose Avatar'}</Button>
                                 <img src={imageLink ? imageLink : 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg'} className='h-[128px] w-[128px] rounded-full  mt-4 border mx-auto' />
 
-
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Gender</span></FormLabel>
-                                <Select defaultValue={'male'} focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'}>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Phone Number</span></FormLabel>
-                                <Input placeholder={'+8801714269755'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Email</span></FormLabel>
-                                <Input placeholder={'admin@gmail.com'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Password</span></FormLabel>
-                                <Input type={'password'} placeholder={'12345678'} autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} size={'lg'} color={'option.400'} />
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl isRequired>
-                                <FormLabel><span className='text-[14px] text-[#777] font-medium'>Date Of Birth</span></FormLabel>
-                                <Input autoComplete='new-password' focusBorderColor='#DFDFDF' border={'1px solid #DFDFDF'} fontSize={'xs'} placeholder={'2002-07-04'} size={'lg'} color={'option.400'} type="date" />
+                                {(!!errors.avatar && !!touched.avatar) ?
+                                    <FormErrorMessage><p className='text-center w-full'>{errors.avatar}</p></FormErrorMessage> : <FormHelperText>
+                                        <p className='text-[#777] text-[13px] w-full text-center'>
+                                            Choose your desired avatar</p>
+                                    </FormHelperText>}
                             </FormControl>
                         </div>
 
+                        <CustomChakraSelect isInvalid={!!errors.gender && !!touched.gender} helper={<>
+
+
+                            {(!!errors.gender && !!touched.gender) ?
+                                <FormErrorMessage>{errors.gender}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Choose your gender</span></FormHelperText>}
+                        </>} handleBlur={handleBlur} handleChange={handleChange} value={values.gender} name='gender' selectLabel='Gender' values={['Male', 'Female']} />
+
+                        <CustomInput isInvalid={!!errors.phoneNumber && !!touched.phoneNumber} handleBlur={handleBlur} handleChange={handleChange} value={values.phoneNumber} helper={<>
+                            {(!!errors.phoneNumber && !!touched.phoneNumber) ?
+                                <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Only USA Phone number can be used E.g. 555-555-1234</span></FormHelperText>}
+
+                        </>} type='text' name='phoneNumber' inputLabel='Phone Number' placeholder='+8801714269755' />
+                        <CustomInput helper={<>
+                            {(!!errors.email && !!touched.email) ?
+                                <FormErrorMessage>{errors.email}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Enter your email</span></FormHelperText>}
+
+                        </>} isInvalid={!!errors.email && !!touched.email} handleBlur={handleBlur} handleChange={handleChange} value={values.email} type='email' name='email' inputLabel='Email' placeholder='admin@gmail.com' />
+                        <CustomInput helper={<>
+                            {(!!errors.password && !!touched.password) ?
+                                <FormErrorMessage>{errors.password}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Enter your desired password</span></FormHelperText>}
+
+                        </>} isInvalid={!!errors.password && !!touched.password} handleBlur={handleBlur} handleChange={handleChange} value={values.password} type='password' name='password' inputLabel='Password' placeholder='User123@' />
+                        <CustomInput helper={<>
+                            {(!!errors.confirmPassword && !!touched.confirmPassword) ?
+                                <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Confirm your password</span></FormHelperText>}
+
+                        </>} isInvalid={!!errors.confirmPassword && !!touched.confirmPassword} handleBlur={handleBlur} handleChange={handleChange} value={values.confirmPassword} type='password' name='confirmPassword' inputLabel='Confirm Password' placeholder='User123@' />
+                        <CustomInput helper={<>
+                            {(!!errors.dob && !!touched.dob) ?
+                                <FormErrorMessage>{errors.dob}</FormErrorMessage> : <FormHelperText><span className='text-[#777] text-[13px]'>
+                                    Select your date of birth</span></FormHelperText>}
+
+                        </>} isInvalid={!!errors.dob && !!touched.dob} handleBlur={handleBlur} handleChange={handleChange} value={values.dob} type='date' name='dob' inputLabel='Date of Birth' placeholder='07-04-2002' />
                         <Button type='submit' colorScheme={'cyan'}>Sign Up</Button>
                     </form>
                     <p className='my-3 text-[14px] text-center text-[#222529]'>

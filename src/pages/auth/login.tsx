@@ -1,5 +1,5 @@
 import ExternelLogin from '@/components/signup/ExternelLogin';
-import { auth } from '@/configs/firebase.init';
+import { auth } from '@/configs/firebase.config';
 import UserLayout from '@/layouts/UserLayout';
 import { Button, FormControl, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, useDisclosure } from '@chakra-ui/react';
 import { sendPasswordResetEmail } from 'firebase/auth';

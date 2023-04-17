@@ -7,7 +7,7 @@ export default async function uploadImgToImgBB(imageFile: File) {
     });
 
     const data = await response.json();
-    console.log(process.env.NEXT_PUBLIC_IMGBB_API_KEY);
+
 
     if (data.success) {
         return data.data.url;

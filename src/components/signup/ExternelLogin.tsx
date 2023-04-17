@@ -1,4 +1,4 @@
-import { auth, facebookProvider, githubProvider, googleProvider, microsoftProvider, twitterProvider, yahooProvider } from '@/configs/firebase.init';
+import { auth, facebookProvider, githubProvider, googleProvider, microsoftProvider, twitterProvider, yahooProvider } from '@/configs/firebase.config';
 import { FormControl, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, PinInput, PinInputField, Spinner, useDisclosure } from '@chakra-ui/react';
 import { AuthProvider, ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from 'firebase/auth';
 import { E164Number } from 'libphonenumber-js/types';
