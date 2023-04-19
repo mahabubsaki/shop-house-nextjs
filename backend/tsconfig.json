@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "sourceMap": true
+  },
+  "files": [
+    "server.ts"
+  ],
+  "exclude": [
+    "./dist"
+  ]
+}
