@@ -35,46 +35,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var dotenv_1 = __importDefault(require("dotenv"));
-var http_errors_1 = __importDefault(require("http-errors"));
-var products_routes_1 = __importDefault(require("./routes/products.routes"));
-dotenv_1.default.config();
-var app = (0, express_1.default)();
-var port = process.env.PORT || 6969;
-// Routes
-app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+exports.singleProductController = exports.productsController = void 0;
+var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        res.status(200).send({
-            status: 200,
-            message: "🎉 Congratulations! Your Server Works Perfectly! 🎉",
-        });
+        res.status(200).send({ done: true });
         return [2 /*return*/];
     });
-}); });
-// Routes
-app.use("/api", products_routes_1.default);
-app.use(function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+}); };
+exports.productsController = productsController;
+var singleProductController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        next((0, http_errors_1.default)(404, "The requested resource could not be found."));
+        res.status(200).send({ id: req.params.id });
         return [2 /*return*/];
     });
-}); });
-app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.send({
-        status: err.status,
-        message: err.message,
-        query: req.query,
-        params: req.params,
-        endpoint: req.originalUrl
-    });
-});
-app.listen(port, function () {
-    console.log("\uD83C\uDF89 Server Up & Running... On PORT http://localhost:".concat(port, " \uD83C\uDF89"));
-});
-//# sourceMappingURL=server.js.map
+}); };
+exports.singleProductController = singleProductController;
+//# sourceMappingURL=products.controller.js.map
