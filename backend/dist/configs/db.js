@@ -35,36 +35,49 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.singleProductController = exports.productsController = void 0;
-var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+var mongoose_1 = __importDefault(require("mongoose"));
+var dotenv_1 = __importDefault(require("./dotenv"));
+var connectDB = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var mongooseDB_URI, error_1;
     return __generator(this, function (_a) {
-        try {
-            res.status(200).send({ done: true });
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                mongooseDB_URI = dotenv_1.default.MONGODB_URI;
+                return [4 /*yield*/, mongoose_1.default.connect(mongooseDB_URI, {
+                        keepAlive: true,
+                        keepAliveInitialDelay: 300000,
+                        serverSelectionTimeoutMS: 5000,
+                    })];
+            case 1:
+                _a.sent();
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                console.error('Mongoose connection error:', error_1.message);
+                process.exit(1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error);
-                res.status(500).send({ error: error.message, controller: 'productsController' });
-            }
-        }
-        return [2 /*return*/];
     });
 }); };
-exports.productsController = productsController;
-var singleProductController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+mongoose_1.default.connection.on('disconnected', function () {
+    console.log('Mongoose disconnected from database');
+});
+process.on('SIGINT', function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        try {
-            res.status(200).send({ id: req.params.id });
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, mongoose_1.default.connection.close()];
+            case 1:
+                _a.sent();
+                process.exit(0);
+                return [2 /*return*/];
         }
-        catch (error) {
-            if (error instanceof Error) {
-                console.error(error);
-                res.status(500).send({ error: error.message, controller: 'singleProductController' });
-            }
-        }
-        return [2 /*return*/];
     });
-}); };
-exports.singleProductController = singleProductController;
-//# sourceMappingURL=products.controller.js.map
+}); });
+exports.default = connectDB;
+//# sourceMappingURL=db.js.map

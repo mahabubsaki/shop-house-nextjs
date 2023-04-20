@@ -40,13 +40,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var dotenv_1 = __importDefault(require("dotenv"));
 var http_errors_1 = __importDefault(require("http-errors"));
 var products_routes_1 = __importDefault(require("./routes/products.routes"));
-dotenv_1.default.config();
+var db_1 = __importDefault(require("./configs/db"));
+var checkDB_1 = __importDefault(require("./middlewares/checkDB"));
+var cors_1 = __importDefault(require("cors"));
+var dotenv_1 = __importDefault(require("./configs/dotenv"));
+//middlewares
 var app = (0, express_1.default)();
-var port = process.env.PORT || 6969;
-// Routes
+app.use((0, cors_1.default)());
+//database connection
+(0, db_1.default)().then(function () {
+    console.log('Database connection established successfully');
+}).catch(function (err) {
+    console.error('Failed to establish database connection', err);
+    process.exit(1);
+});
+// Default route to check is everything okay
 app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         res.status(200).send({
@@ -57,13 +67,15 @@ app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0
     });
 }); });
 // Routes
-app.use("/api", products_routes_1.default);
+app.use("/api", checkDB_1.default, products_routes_1.default);
+//Creating error for invalid rotues
 app.use(function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         next((0, http_errors_1.default)(404, "The requested resource could not be found."));
         return [2 /*return*/];
     });
 }); });
+//sending the created error to frontend
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.send({
@@ -74,7 +86,8 @@ app.use(function (err, req, res, next) {
         endpoint: req.originalUrl
     });
 });
-app.listen(port, function () {
-    console.log("\uD83C\uDF89 Server Up & Running... On PORT http://localhost:".concat(port, " \uD83C\uDF89"));
+//listening to the port and watching on console
+app.listen(dotenv_1.default.PORT, function () {
+    console.log("\uD83C\uDF89 Server Up & Running... On PORT http://localhost:".concat(dotenv_1.default.PORT, " \uD83C\uDF89"));
 });
 //# sourceMappingURL=server.js.map
