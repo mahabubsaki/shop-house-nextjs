@@ -39,34 +39,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.singleProductController = exports.productsController = void 0;
 var http_errors_1 = __importDefault(require("http-errors"));
-var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
-            res.status(200).send({ done: true });
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                next((0, http_errors_1.default)(400, 'Bad Request', { message: error.message }));
-            }
-        }
-        return [2 /*return*/];
+function default_1(req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            next((0, http_errors_1.default)(404, "The requested resource could not be found."));
+            return [2 /*return*/];
+        });
     });
-}); };
-exports.productsController = productsController;
-var singleProductController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
-            res.status(200).send({ id: req.params.id });
-        }
-        catch (error) {
-            if (error instanceof Error) {
-                next((0, http_errors_1.default)(400, 'Bad Request', { message: error.message }));
-            }
-        }
-        return [2 /*return*/];
-    });
-}); };
-exports.singleProductController = singleProductController;
-//# sourceMappingURL=products.controller.js.map
+}
+exports.default = default_1;
+//# sourceMappingURL=errorCreater.helper.js.map

@@ -1,14 +1,41 @@
+//package import
 import express, { Express, Request, Response, NextFunction } from 'express';
-import createError, { HttpError } from 'http-errors';
-import productsRoute from './routes/products.routes';
-import connectDB from './configs/db';
-import checkDB from './middlewares/checkDB';
+import session, { Session } from 'express-session';
+import bodyParser from "body-parser";
 import cors from 'cors';
-import dotEnvConfig from './configs/dotenv';
+import compression from "compression";
+import helmet from "helmet";
+import morgan from "morgan";
+import cookieParser from 'cookie-parser';
+
+//internel import
+import productsRoute from './routes/products.route';
+import connectDB from './configs/db.config';
+import checkDB from './middlewares/checkDB.middleware';
+import dotEnvConfig from './configs/dotenv.config.';
+import errorHanlder from './helpers/errorHandler.helper';
+import errorCreater from './helpers/errorCreater.helper';
+import otherRoute from './routes/other.route';
+
 
 //middlewares
 const app: Express = express();
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(compression());
+app.use(helmet());
+app.use(morgan('dev'));
+app.use(cookieParser());
+declare module 'express' {
+    interface Request {
+        session: Session;
+    }
+}
+app.use(session({ secret: dotEnvConfig.SESSION_SECRET, resave: false, saveUninitialized: true }));
+
+
 
 
 
@@ -21,7 +48,9 @@ connectDB().then(() => {
 });
 
 // Default route to check is everything okay
-app.get("/", async (req, res, next) => {
+app.get("/", async (req: Request, res: Response, next: NextFunction) => {
+    req.session.views = (req.session.views || 0) + 1;
+    console.log(req.session.views);
     res.status(200).send({
         status: 200,
         message: "🎉 Congratulations! Your Server Works Perfectly! 🎉",
@@ -32,26 +61,14 @@ app.get("/", async (req, res, next) => {
 
 // Routes
 app.use("/api", checkDB, productsRoute);
+app.use("/api", checkDB, otherRoute);
 
 
 
-//Creating error for invalid rotues
-app.use(async (req: Request, res: Response, next: NextFunction) => {
-    next(createError(404, "The requested resource could not be found."));
-});
+//Error handling
+app.use(errorCreater);
+app.use(errorHanlder);
 
-
-//sending the created error to frontend
-app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-    res.status(err.status || 500);
-    res.send({
-        status: err.status,
-        message: err.message,
-        query: req.query,
-        params: req.params,
-        endpoint: req.originalUrl
-    });
-});
 
 //listening to the port and watching on console
 app.listen(dotEnvConfig.PORT, () => {

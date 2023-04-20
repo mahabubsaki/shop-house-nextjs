@@ -39,61 +39,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//package import
-var express_1 = __importDefault(require("express"));
-var express_session_1 = __importDefault(require("express-session"));
-var body_parser_1 = __importDefault(require("body-parser"));
-var cors_1 = __importDefault(require("cors"));
-var compression_1 = __importDefault(require("compression"));
-var helmet_1 = __importDefault(require("helmet"));
-var morgan_1 = __importDefault(require("morgan"));
-var cookie_parser_1 = __importDefault(require("cookie-parser"));
-//internel import
-var products_route_1 = __importDefault(require("./routes/products.route"));
-var db_config_1 = __importDefault(require("./configs/db.config"));
-var checkDB_middleware_1 = __importDefault(require("./middlewares/checkDB.middleware"));
-var dotenv_config_1 = __importDefault(require("./configs/dotenv.config."));
-var errorHandler_helper_1 = __importDefault(require("./helpers/errorHandler.helper"));
-var errorCreater_helper_1 = __importDefault(require("./helpers/errorCreater.helper"));
-var other_route_1 = __importDefault(require("./routes/other.route"));
-//middlewares
-var app = (0, express_1.default)();
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: true }));
-app.use(body_parser_1.default.json());
-app.use((0, compression_1.default)());
-app.use((0, helmet_1.default)());
-app.use((0, morgan_1.default)('dev'));
-app.use((0, cookie_parser_1.default)());
-app.use((0, express_session_1.default)({ secret: dotenv_config_1.default.SESSION_SECRET, resave: false, saveUninitialized: true }));
-//database connection
-(0, db_config_1.default)().then(function () {
-    console.log('Database connection established successfully');
-}).catch(function (err) {
-    console.error('Failed to establish database connection', err);
-    process.exit(1);
-});
-// Default route to check is everything okay
-app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+//a middleware to check if the db connnected or not
+var mongoose_1 = __importDefault(require("mongoose"));
+var http_errors_1 = __importDefault(require("http-errors"));
+exports.default = (function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        req.session.views = (req.session.views || 0) + 1;
-        console.log(req.session.views);
-        res.status(200).send({
-            status: 200,
-            message: "🎉 Congratulations! Your Server Works Perfectly! 🎉",
-        });
+        if (mongoose_1.default.connection.readyState !== 1) {
+            return [2 /*return*/, next((0, http_errors_1.default)(503, 'Service Unavailable', { message: 'Database not connected yet' }))];
+        }
+        next();
         return [2 /*return*/];
     });
 }); });
-// Routes
-app.use("/api", checkDB_middleware_1.default, products_route_1.default);
-app.use("/api", checkDB_middleware_1.default, other_route_1.default);
-//Error handling
-app.use(errorCreater_helper_1.default);
-app.use(errorHandler_helper_1.default);
-//listening to the port and watching on console
-app.listen(dotenv_config_1.default.PORT, function () {
-    console.log("\uD83C\uDF89 Server Up & Running... On PORT http://localhost:".concat(dotenv_config_1.default.PORT, " \uD83C\uDF89"));
-});
-//# sourceMappingURL=server.js.map
+//# sourceMappingURL=checkDB.middleware.js.map
