@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.1",
+    "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@reduxjs/toolkit": "^1.9.3",
+    "@tanstack/react-query": "^4.29.3",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -24,7 +25,6 @@
     "firebase": "^9.19.1",
     "formik": "^2.2.9",
     "framer-motion": "^10.5.0",
-    "install": "^0.13.0",
     "lodash.debounce": "^4.0.8",
     "mapbox-gl": "^2.14.0",
     "next": "13.2.4",

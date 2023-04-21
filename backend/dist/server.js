@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,12 +65,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //package import
 var express_1 = __importDefault(require("express"));
 var express_session_1 = __importDefault(require("express-session"));
-var body_parser_1 = __importDefault(require("body-parser"));
+var body_parser_1 = __importStar(require("body-parser"));
 var cors_1 = __importDefault(require("cors"));
 var compression_1 = __importDefault(require("compression"));
 var helmet_1 = __importDefault(require("helmet"));
 var morgan_1 = __importDefault(require("morgan"));
 var cookie_parser_1 = __importDefault(require("cookie-parser"));
+var express4_1 = require("@apollo/server/express4");
 //internel import
 var products_route_1 = __importDefault(require("./routes/products.route"));
 var db_config_1 = __importDefault(require("./configs/db.config"));
@@ -56,6 +80,7 @@ var dotenv_config_1 = __importDefault(require("./configs/dotenv.config."));
 var errorHandler_helper_1 = __importDefault(require("./helpers/errorHandler.helper"));
 var errorCreater_helper_1 = __importDefault(require("./helpers/errorCreater.helper"));
 var other_route_1 = __importDefault(require("./routes/other.route"));
+var graphql_config_1 = __importDefault(require("./configs/graphql.config"));
 //middlewares
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -74,11 +99,30 @@ app.use((0, express_session_1.default)({ secret: dotenv_config_1.default.SESSION
     console.error('Failed to establish database connection', err);
     process.exit(1);
 });
+//graphql connection
+function startServer() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, graphql_config_1.default.start()];
+                case 1:
+                    _a.sent();
+                    app.use('/graphql', (0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(graphql_config_1.default));
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+startServer().then(function () {
+    console.log('Graphql connection established successfully');
+    errorRoutesHandler();
+}).catch(function (err) {
+    console.error('Failed to establish Graphql connection', err);
+    process.exit(1);
+});
 // Default route to check is everything okay
 app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        req.session.views = (req.session.views || 0) + 1;
-        console.log(req.session.views);
         res.status(200).send({
             status: 200,
             message: "🎉 Congratulations! Your Server Works Perfectly! 🎉",
@@ -90,10 +134,12 @@ app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0
 app.use("/api", checkDB_middleware_1.default, products_route_1.default);
 app.use("/api", checkDB_middleware_1.default, other_route_1.default);
 //Error handling
-app.use(errorCreater_helper_1.default);
-app.use(errorHandler_helper_1.default);
+function errorRoutesHandler() {
+    app.use(errorCreater_helper_1.default);
+    app.use(errorHandler_helper_1.default);
+}
 //listening to the port and watching on console
 app.listen(dotenv_config_1.default.PORT, function () {
-    console.log("\uD83C\uDF89 Server Up & Running... On PORT http://localhost:".concat(dotenv_config_1.default.PORT, " \uD83C\uDF89"));
+    console.log("\uD83C\uDF89 Server Up & Running.... On PORT http://localhost:".concat(dotenv_config_1.default.PORT, " \uD83C\uDF89"));
 });
 //# sourceMappingURL=server.js.map

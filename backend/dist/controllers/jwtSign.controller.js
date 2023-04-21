@@ -48,14 +48,14 @@ exports.default = (function (req, res, next) { return __awaiter(void 0, void 0, 
         try {
             email = req.body.email;
             if (!email) {
-                return [2 /*return*/, next((0, http_errors_1.default)(400, 'Bad Request', { message: 'Email is required while creating token' }))];
+                return [2 /*return*/, next((0, http_errors_1.default)(422, '', { message: 'Email is required while creating token' }))];
             }
             token = jsonwebtoken_1.default.sign({ email: email }, dotenv_config_1.default.JWT_SECRET);
             res.status(200).json({ token: token });
         }
         catch (error) {
             if (error instanceof Error) {
-                next((0, http_errors_1.default)(400, 'Bad Request', { message: error.message }));
+                next((0, http_errors_1.default)(422, '', { message: error.message }));
             }
         }
         return [2 /*return*/];

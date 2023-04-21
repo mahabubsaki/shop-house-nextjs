@@ -9,13 +9,15 @@ import { Provider } from 'react-redux';
 import customTheme from '@/utils/chakra_theme';
 import NProgress from "nprogress";
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'nprogress/nprogress.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Toaster } from 'react-hot-toast';
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
   const router = useRouter();
 
   const handleStart = () => {
@@ -38,11 +40,15 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return (
-    <Provider store={store}>
-      <ChakraProvider theme={customTheme}>
-        <Component {...pageProps} />
-        <Toaster />
-      </ChakraProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <Provider store={store}>
+          <ChakraProvider theme={customTheme}>
+            <Component {...pageProps} />
+            <Toaster />
+          </ChakraProvider>
+        </Provider>
+      </Hydrate>
+    </QueryClientProvider>
   );
 }

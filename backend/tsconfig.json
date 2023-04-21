@@ -5,7 +5,8 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "sourceMap": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "skipLibCheck": true
   },
   "files": [
     "server.ts"

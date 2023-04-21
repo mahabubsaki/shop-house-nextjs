@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,8 +50,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.singleProductController = exports.productsController = void 0;
+exports.addProductToCollection = exports.singleProductController = exports.productsController = void 0;
 var http_errors_1 = __importDefault(require("http-errors"));
+var product_model_1 = __importDefault(require("../models/product.model"));
+var skuGenerator_helper_1 = __importDefault(require("../helpers/skuGenerator.helper"));
 var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         try {
@@ -69,4 +82,28 @@ var singleProductController = function (req, res, next) { return __awaiter(void 
     });
 }); };
 exports.singleProductController = singleProductController;
+var addProductToCollection = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var productDocument, response, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                productDocument = new product_model_1.default(__assign(__assign({}, req.body), { sku: (0, skuGenerator_helper_1.default)(req.body.category) }));
+                return [4 /*yield*/, productDocument.save()];
+            case 1:
+                response = _a.sent();
+                res.status(200).send(__assign(__assign({}, response), { done: true }));
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                console.log(error_1);
+                if (error_1 instanceof Error) {
+                    next((0, http_errors_1.default)(422, '', { message: error_1.message }));
+                }
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.addProductToCollection = addProductToCollection;
 //# sourceMappingURL=products.controller.js.map
