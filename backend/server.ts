@@ -57,7 +57,6 @@ connectDB().then(() => {
 async function startServer() {
     await graphQlServer.start();
     app.use('/graphql', cors<cors.CorsRequest>(), json(), expressMiddleware(graphQlServer));
-
 }
 startServer().then(() => {
     console.log('Graphql connection established successfully');
