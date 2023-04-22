@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.12",
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -25,6 +26,7 @@
     "firebase": "^9.19.1",
     "formik": "^2.2.9",
     "framer-motion": "^10.5.0",
+    "graphql": "^16.6.0",
     "lodash.debounce": "^4.0.8",
     "mapbox-gl": "^2.14.0",
     "next": "13.2.4",

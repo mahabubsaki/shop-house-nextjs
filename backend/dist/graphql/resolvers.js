@@ -46,7 +46,7 @@ var resolvers = {
             var products;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, product_model_1.default.find({})];
+                    case 0: return [4 /*yield*/, product_model_1.default.distinct('category')];
                     case 1:
                         products = _a.sent();
                         return [2 /*return*/, products];

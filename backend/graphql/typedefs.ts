@@ -1,6 +1,6 @@
 const typeDefs = `#graphql
   type Query {
-    allCategories: [AllProduct!]
+    allCategories: [String!]!
   }
   type AllProduct {
     img: [String!]!

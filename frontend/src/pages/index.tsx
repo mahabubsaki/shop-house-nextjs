@@ -9,10 +9,18 @@ import Services from '@/components/home/Services';
 import ParallexPromo from '@/components/home/ParallexPromo';
 import LatestNews from '@/components/home/LatestNews';
 import BrandsMarquee from '@/components/home/BrandsMarquee';
+import { gql } from '@apollo/client';
+import apolloClient from '@/configs/apollo-client.config';
+import { GetStaticProps } from 'next';
 
 
+type PageDataType = {
+  allCategories: string[];
+};
 
-export default function Home() {
+
+export default function Home(props: PageDataType) {
+
   return (
     <>
       <Head>
@@ -35,3 +43,19 @@ export default function Home() {
     </>
   );
 }
+
+
+export const getStaticProps: GetStaticProps<PageDataType> = async () => {
+  const { data } = await apolloClient.query({
+    query: gql`
+    query ExampleQuery {
+      allCategories
+    }
+    `,
+  });
+  return {
+    props: {
+      allCategories: data.allCategories,
+    },
+  };
+};
