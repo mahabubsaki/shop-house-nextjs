@@ -80,7 +80,7 @@ var dotenv_config_1 = __importDefault(require("./configs/dotenv.config."));
 var errorHandler_helper_1 = __importDefault(require("./helpers/errorHandler.helper"));
 var errorCreater_helper_1 = __importDefault(require("./helpers/errorCreater.helper"));
 var other_route_1 = __importDefault(require("./routes/other.route"));
-var graphql_config_1 = __importDefault(require("./configs/graphql.config"));
+var apollo_server_config_1 = __importDefault(require("./configs/apollo-server.config"));
 //middlewares
 var app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -104,10 +104,10 @@ function startServer() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, graphql_config_1.default.start()];
+                case 0: return [4 /*yield*/, apollo_server_config_1.default.start()];
                 case 1:
                     _a.sent();
-                    app.use('/graphql', (0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(graphql_config_1.default));
+                    app.use('/graphql', (0, cors_1.default)(), (0, body_parser_1.json)(), (0, express4_1.expressMiddleware)(apollo_server_config_1.default));
                     return [2 /*return*/];
             }
         });

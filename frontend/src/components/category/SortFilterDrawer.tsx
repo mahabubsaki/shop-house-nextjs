@@ -17,17 +17,17 @@ const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                         <Accordion allowToggle allowMultiple>
                             <CustomAccordion section='category' allCategories={
                                 [
-                                    { name: 'Clothing', subCategory: ["Shirts", "Pants", "Kid's"] },
-                                    { name: 'Electronics', subCategory: ['Speaker', 'Machine', 'Headphone'] },
+                                    { name: 'Clothing', subCategory: ["Men's", "Women's", "Kid's"] },
+                                    { name: 'Electronics', subCategory: ['Speakers', 'Machines', 'Headphones'] },
                                     { name: 'Beauty', subCategory: ['Skincare', 'Haircare', 'Makeup', 'Fragrances'] },
-                                    { name: 'Kitchen', subCategory: ['Furniture', 'Cleaning Supply'] },
+                                    { name: 'Kitchen', subCategory: ['Cleaning Supply'] },
                                     { name: 'Sports', subCategory: ['Spors Gear', 'Sports Shoes', 'Fitness Equipment'] },
-                                    { name: 'Toys', subCategory: ['Dolls', 'Board Games', 'Building'] },
+                                    { name: 'Toys', subCategory: ['Dolls', 'Board Games', 'Building Games'] },
                                     { name: 'Health', subCategory: ['Vitamins', 'Supplements', 'Medical Supply'] },
                                     { name: 'Books', subCategory: ['Fiction', 'Comic', 'Magazine'] },
                                     { name: 'Food', subCategory: ['Snacks', 'Sweets', 'Spices'] },
-                                    { name: 'Fashion', subCategory: ['Bag'] },
-                                    { name: 'Accessories', subCategory: ['Shoes', 'Caps', 'Watch'] }
+                                    { name: 'Fashion', subCategory: ['Ladies Bag', 'Belts', 'Glasses'] },
+                                    { name: 'Accessories', subCategory: ['Shoes', 'Caps', 'Watches', 'Backpacks', 'Sofa'] }
                                 ]
                             } />
                             <CustomAccordion section='price' />

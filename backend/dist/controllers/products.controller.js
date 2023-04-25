@@ -54,36 +54,79 @@ exports.addProductToCollection = exports.singleProductController = exports.produ
 var http_errors_1 = __importDefault(require("http-errors"));
 var product_model_1 = __importDefault(require("../models/product.model"));
 var skuGenerator_helper_1 = __importDefault(require("../helpers/skuGenerator.helper"));
+var _a = require('date-fns'), addDays = _a.addDays, differenceInDays = _a.differenceInDays;
 var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        try {
-            res.status(200).send({ done: true });
+    var pageSize, pageNum, sort, type, skip, _a, _b, error_1;
+    var _c, _d;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
+            case 0:
+                _e.trys.push([0, 3, , 4]);
+                console.log(req.query);
+                pageSize = Number(req.query.pageSize) || 12;
+                pageNum = Number(req.query.pageNumber) || 1;
+                sort = req.query.sort.toString() || 'name';
+                type = req.query.type !== 'false';
+                skip = (pageNum - 1) * pageSize;
+                _b = (_a = res.status(200)).send;
+                _c = {};
+                return [4 /*yield*/, product_model_1.default.find({}).sort((_d = {}, _d[sort] = type ? 1 : -1, _d)).skip(skip).limit(pageSize)];
+            case 1:
+                _c.products = _e.sent();
+                return [4 /*yield*/, product_model_1.default.estimatedDocumentCount()];
+            case 2:
+                _b.apply(_a, [(_c.totalProduct = _e.sent(), _c)]);
+                return [3 /*break*/, 4];
+            case 3:
+                error_1 = _e.sent();
+                if (error_1 instanceof Error) {
+                    next((0, http_errors_1.default)(400, 'Bad Request', { message: error_1.message }));
+                }
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
-        catch (error) {
-            if (error instanceof Error) {
-                next((0, http_errors_1.default)(400, 'Bad Request', { message: error.message }));
-            }
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.productsController = productsController;
 var singleProductController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var products, _i, products_1, product, random, error_2;
     return __generator(this, function (_a) {
-        try {
-            res.status(200).send({ id: req.params.id });
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 6, , 7]);
+                return [4 /*yield*/, product_model_1.default.find({})];
+            case 1:
+                products = _a.sent();
+                _i = 0, products_1 = products;
+                _a.label = 2;
+            case 2:
+                if (!(_i < products_1.length)) return [3 /*break*/, 5];
+                product = products_1[_i];
+                random = Math.floor(Math.random() * (70 - 35 + 1)) + 35;
+                product.visits = random;
+                return [4 /*yield*/, product.save()];
+            case 3:
+                _a.sent();
+                _a.label = 4;
+            case 4:
+                _i++;
+                return [3 /*break*/, 2];
+            case 5:
+                res.send('Random ratings added to products without a rating.');
+                return [3 /*break*/, 7];
+            case 6:
+                error_2 = _a.sent();
+                if (error_2 instanceof Error) {
+                    next((0, http_errors_1.default)(400, 'Bad Request', { message: error_2.message }));
+                }
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
-        catch (error) {
-            if (error instanceof Error) {
-                next((0, http_errors_1.default)(400, 'Bad Request', { message: error.message }));
-            }
-        }
-        return [2 /*return*/];
     });
 }); };
 exports.singleProductController = singleProductController;
 var addProductToCollection = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var productDocument, response, error_1;
+    var productDocument, response, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -95,10 +138,10 @@ var addProductToCollection = function (req, res, next) { return __awaiter(void 0
                 res.status(200).send(__assign(__assign({}, response), { done: true }));
                 return [3 /*break*/, 3];
             case 2:
-                error_1 = _a.sent();
-                console.log(error_1);
-                if (error_1 instanceof Error) {
-                    next((0, http_errors_1.default)(422, '', { message: error_1.message }));
+                error_3 = _a.sent();
+                console.log(error_3);
+                if (error_3 instanceof Error) {
+                    next((0, http_errors_1.default)(422, '', { message: error_3.message }));
                 }
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
@@ -106,4 +149,43 @@ var addProductToCollection = function (req, res, next) { return __awaiter(void 0
     });
 }); };
 exports.addProductToCollection = addProductToCollection;
+// GET /products?pageSize=10&pageNum=1&sort=name
+// router.get('/products', async (req, res) => {
+//   const pageSize = parseInt(req.query.pageSize) || 10;
+//   const pageNum = parseInt(req.query.pageNum) || 1;
+//   const sort = req.query.sort || 'name';
+//   const skip = (pageNum - 1) * pageSize;
+//   const totalProducts = await Product.countDocuments();
+//   const totalPages = Math.ceil(totalProducts / pageSize);
+//   Product.find()
+//     .sort(sort)
+//     .skip(skip)
+//     .limit(pageSize)
+//     .exec((err, products) => {
+//       if (err) {
+//         return res.status(500).json({ message: err.message });
+//       }
+//       res.json({
+//         products,
+//         pageInfo: {
+//           totalProducts,
+//           totalPages,
+//           currentPage: pageNum,
+//           pageSize,
+//         },
+//       });
+//     });
+// });
+// module.exports = router;
+// const products = await ProductModel.find({});
+// // Loop through products and add a random rating
+// for (const product of products) {
+//     const startDate = new Date(2023, 2, 17); // March 17, 2023
+//     const endDate = new Date(2023, 3, 26); // April 26, 2023
+//     const range = differenceInDays(endDate, startDate) + 1;
+//     const randomDate = addDays(startDate, Math.floor(Math.random() * range));
+//     product.addedDate = randomDate;
+//     await product.save();
+// }
+// res.send('Random ratings added to products without a rating.');
 //# sourceMappingURL=products.controller.js.map

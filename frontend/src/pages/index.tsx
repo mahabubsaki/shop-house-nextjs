@@ -14,6 +14,7 @@ import apolloClient from '@/configs/apollo-client.config';
 import { GetStaticProps } from 'next';
 
 
+
 type PageDataType = {
   allCategories: string[];
 };
@@ -30,6 +31,7 @@ export default function Home(props: PageDataType) {
         <link rel="icon" href="/favicon1.ico" />
       </Head>
       <UserLayout>
+
         <SliderHeader />
         <SliderFeature />
         <FeaturedProducts />
@@ -57,5 +59,6 @@ export const getStaticProps: GetStaticProps<PageDataType> = async () => {
     props: {
       allCategories: data.allCategories,
     },
+    revalidate: 86400
   };
 };

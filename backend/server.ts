@@ -8,7 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from 'cookie-parser';
 import { expressMiddleware } from '@apollo/server/express4';
-
+import fs from 'fs';
 
 //internel import
 import productsRoute from './routes/products.route';
@@ -18,7 +18,9 @@ import dotEnvConfig from './configs/dotenv.config.';
 import errorHanlder from './helpers/errorHandler.helper';
 import errorCreater from './helpers/errorCreater.helper';
 import otherRoute from './routes/other.route';
-import graphQlServer from './configs/graphql.config';
+import graphQlServer from './configs/apollo-server.config';
+
+
 
 
 //middlewares
@@ -74,7 +76,6 @@ app.get("/", async (req: Request, res: Response, next: NextFunction) => {
         message: "🎉 Congratulations! Your Server Works Perfectly! 🎉",
     });
 });
-
 
 
 

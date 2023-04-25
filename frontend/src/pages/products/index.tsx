@@ -7,10 +7,44 @@ import BreadCrumpNavigator from '@/components/shared/BreadCrumpNavigator';
 import UserLayout from '@/layouts/UserLayout';
 import { useDisclosure } from '@chakra-ui/react';
 import Head from 'next/head';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import IProduct from '@/interfaces/product.interface';
+import { fetchProducts } from '@/fetchers/fetchProducts.fetcher';
+interface PageProps {
+    products: IProduct[];
+    pageSize: number;
+    pageNumber: number;
+    totalProduct: number;
+    sort: string;
+    type: boolean;
+}
 
-const Category = () => {
+const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: PageProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [totalProducts, setTotalProducts] = useState(totalProduct);
+    const [currentPageSize, setCurrentPageSize] = useState(pageSize);
+    const [currentPageNumber, setCurrentPageNumber] = useState(pageNumber);
+    const [currentType, setCurrentType] = useState(type);
+    const [currentSort, setCurrentSort] = useState(sort);
+    const [currentProducts, setCurrentProducts] = useState(products);
+    const [activePage, setActivePage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        try {
+
+            (async function fetchPageData() {
+                setLoading(true);
+                const { products, totalProduct } = await fetchProducts(Number(currentPageSize || 12), Number(currentPageNumber || 1), (currentSort || 'name').toString(), !!(currentType));
+                setCurrentProducts(products);
+                setTotalProducts(totalProduct);
+                setLoading(false);
+            })();
+        }
+        catch (err) {
+
+        }
+    }, [currentPageSize, currentPageNumber, currentSort, currentType]);
     const btnRef = useRef<HTMLButtonElement>(null);
     return (
         <>
@@ -24,14 +58,27 @@ const Category = () => {
                 <CategoryBanner />
                 <div className='max-w-[1200px] mx-auto'>
                     <BreadCrumpNavigator paths={['Category']} />
-                    <SortFilterSection btnRef={btnRef} onOpen={onOpen} />
-                    <SortFilterSectionDesktop btnRef={btnRef} onOpen={onOpen} />
+                    <SortFilterSection setActivePage={setActivePage} setCurrentPageNumber={setCurrentPageNumber} setCurrentPageSize={setCurrentPageSize} setCurrentSort={setCurrentSort} setCurrentType={setCurrentType} btnRef={btnRef} onOpen={onOpen} />
+                    <SortFilterSectionDesktop setActivePage={setActivePage} setCurrentPageNumber={setCurrentPageNumber} setCurrentPageSize={setCurrentPageSize} setCurrentSort={setCurrentSort} setCurrentType={setCurrentType} btnRef={btnRef} onOpen={onOpen} />
                     <SortFilterDrawer btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
-                    <ProductArea />
+                    <ProductArea loading={loading} setActivePage={setActivePage} activePage={activePage} setCurrentPageNumber={setCurrentPageNumber} currentProducts={currentProducts} totalProducts={totalProducts} currentPageSize={currentPageSize} />
                 </div>
             </UserLayout>
         </>
     );
 };
+
+
+export const getServerSideProps: GetServerSideProps<PageProps> = async ({ query }) => {
+    const { pageSize = 12, pageNumber = 1, sort = 'name', type = true } = query;
+    const { products, totalProduct } = await fetchProducts(Number(pageSize), Number(pageNumber), sort.toString(), !!type);
+
+    return {
+        props: { products, pageSize: Number(pageSize), pageNumber: Number(pageNumber), totalProduct: Number(totalProduct), sort: sort.toString(), type: !!type },
+    };
+};
+
+
+
 
 export default Category;

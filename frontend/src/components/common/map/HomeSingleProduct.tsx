@@ -4,13 +4,13 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { BsCartPlus, BsHeart } from 'react-icons/bs';
 import { FiExternalLink } from 'react-icons/fi';
 
-const HomeSingleProduct = ({ item: { category, discount, image, isHot, name, price, rating }, delay, isFeatured, isNewArrival, section }: {
+const HomeSingleProduct = ({ item: { category, discount, img, isHot, name, price, rating }, delay, isFeatured, isNewArrival, section }: {
     item: {
         name: string,
         category: string,
         isHot: boolean,
         discount: number,
-        image: string[],
+        img: string[],
         rating: number,
         price: number,
     }, delay?: number, isFeatured?: boolean, isNewArrival?: boolean, section?: string;
@@ -25,8 +25,8 @@ const HomeSingleProduct = ({ item: { category, discount, image, isHot, name, pri
         }}>
             <figure className='w-full cursor-pointer aspect-[1/1] relative rounded-lg mb-4'>
                 <div className='w-full h-full relative'>
-                    <Image src={image[0]} fill alt="product-image-1" className={`w-full ${figImg ? 'opacity-0' : 'opacity-100'} object-cover z-[3] h-full rounded-lg relative duration-500`} />
-                    <Image src={image[1]} fill className='w-full object-cover z-[2] h-full rounded-lg duration-500 absolute inset-0' alt="product-image-2" />
+                    <Image src={img[0]} fill alt="product-image-1" className={`w-full ${figImg ? 'opacity-0' : 'opacity-100'} object-cover z-[3] h-full rounded-lg relative duration-500`} />
+                    <Image src={img[1]} fill className='w-full object-cover z-[2] h-full rounded-lg duration-500 absolute inset-0' alt="product-image-2" />
                 </div>
 
 

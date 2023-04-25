@@ -46,10 +46,21 @@ var resolvers = {
             var products;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, product_model_1.default.distinct('category')];
+                    case 0: return [4 /*yield*/, product_model_1.default.distinct('subCategory')];
                     case 1:
                         products = _a.sent();
                         return [2 /*return*/, products];
+                }
+            });
+        }); },
+        allColors: function () { return __awaiter(void 0, void 0, void 0, function () {
+            var allColors;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, product_model_1.default.find({})];
+                    case 1:
+                        allColors = _a.sent();
+                        return [2 /*return*/, allColors];
                 }
             });
         }); }

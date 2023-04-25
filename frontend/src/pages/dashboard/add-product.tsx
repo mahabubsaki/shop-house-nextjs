@@ -22,6 +22,8 @@ interface DataType {
     dimensions: number[];
     colors: string[];
     sizes: string[];
+    subCategory: string;
+    stock: number;
 }
 
 
@@ -51,13 +53,14 @@ const AddProduct = () => {
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         setErrorMsg('');
-        const { img0, img1, img2, img3, img4, price, discount, category, names, specialType, isHot, weight, dimensions, colors, sizes, description } = e.target;
+        const { img0, img1, img2, img3, img4, price, discount, category, names, specialType, isHot, weight, dimensions, colors, sizes, description, subCategory, stock } = e.target;
         const data: DataType = {
             img: [img0.value || undefined, img1.value || undefined, img2.value || undefined, img3.value || undefined, img4.value || undefined],
             price: Number(price.value),
             discount: Number(discount.value),
             category: category.value,
             name: names.value,
+            subCategory: subCategory.value,
             specialType: specialType.value,
             isHot: !!isHot.value,
             description: description.value,
@@ -65,6 +68,7 @@ const AddProduct = () => {
             dimensions: [...(dimensions.value.split(','))].map(i => Number(i)),
             colors: [...(colors.value.split(','))],
             sizes: [...(sizes.value.split(','))],
+            stock: Number(stock.value)
         };
         mutate(data);
     };
@@ -98,6 +102,14 @@ const AddProduct = () => {
                         <div>
                             <label htmlFor='category'>Category Field</label>
                             <Input name='category' id='category' />
+                        </div>
+                        <div>
+                            <label htmlFor='subCategory'>Sub Category Field</label>
+                            <Input name='subCategory' id='subCategory' />
+                        </div>
+                        <div>
+                            <label htmlFor='stock'>Stock Field</label>
+                            <Input name='stock' id='stock' />
                         </div>
                         <div>
                             <label htmlFor='names'>Name Field</label>
