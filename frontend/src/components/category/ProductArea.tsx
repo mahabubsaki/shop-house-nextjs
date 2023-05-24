@@ -18,6 +18,7 @@ const ProductArea = ({ setCurrentPageNumber, currentProducts, totalProducts, cur
             </div>}
             <div className='py-[25px] pb-[50px] border-t border-x-0 border-b-0 border flex justify-end'>
                 <Pagination
+                    disabled={loading}
                     prev
                     last
                     next

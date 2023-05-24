@@ -1,3 +1,4 @@
+import { hexToColorName } from '@/utils/extract_color_name';
 import { Checkbox, Tab, Table, TableContainer, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React, { useState } from 'react';
@@ -31,7 +32,7 @@ const InformationTabs = ({ reviews, description, color, dimensions, size, weight
                                     </Tr>
                                     <Tr>
                                         <Td><span className='font-bold text-[#7b858a]'>Color</span></Td>
-                                        <Td><span className='text-[#7b858a]'>{color.join(' , ')}</span></Td>
+                                        <Td><span className='text-[#7b858a]'>{color.map(each => hexToColorName(each)).join(' , ')}</span></Td>
                                     </Tr>
                                     <Tr>
                                         <Td><span className='font-bold text-[#7b858a]'>Size</span></Td>

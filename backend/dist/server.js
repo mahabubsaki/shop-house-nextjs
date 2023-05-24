@@ -130,6 +130,15 @@ app.get("/", function (req, res, next) { return __awaiter(void 0, void 0, void 0
         return [2 /*return*/];
     });
 }); });
+app.get("/test", function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        res.status(200).send({
+            status: 200,
+            message: "🎉 test 🎉",
+        });
+        return [2 /*return*/];
+    });
+}); });
 // Routes
 app.use("/api", checkDB_middleware_1.default, products_route_1.default);
 app.use("/api", checkDB_middleware_1.default, other_route_1.default);

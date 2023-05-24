@@ -7,39 +7,64 @@ import ImageSlider from '@/components/product/ImageSlider';
 import ProductInformation from '@/components/product/ProductInformation';
 import InformationTabs from '@/components/product/InformationTabs';
 import RelatedProducts from '@/components/product/RelatedProducts';
+import apolloClient from '@/configs/apollo-client.config';
+import { gql } from '@apollo/client';
+import LinkBuilder from '@/utils/name_to_link_builder';
+import IProduct from '@/interfaces/product.interface';
 
 
-export const getServerSideProps: GetServerSideProps<{ name: string; }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<{ name: string; product: IProduct; }> = async (context) => {
     const { name } = context.query;
+    let convertedName;
+    if (typeof name === 'string') {
+        convertedName = name.split('-').join(' ');
+    }
+    console.log(convertedName);
+    const { data } = await apolloClient.query({
+        query: gql`
+          query ExampleQuery($name: String!) {
+            getProductByName(name: $name) {
+                _id
+                category
+                colors
+                description
+                dimensions
+                img
+                isHot
+                name
+                sizes
+                discount
+                price
+                sku
+                specialType
+                stock
+                subCategory
+                weight
+            }
+          }
+        `,
+        variables: {
+            name: convertedName,
+        },
+    });
+    console.log(data);
     return {
         props: {
             name: name + '',
+            product: data?.getProductByName?.[0] || {}
         }
     };
 };
 
-const SingleProductPage = ({ name }: { name: string; }) => {
-    const data = {
-        img: ['https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-1-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-2-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-3-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-4-big.jpg', 'https://portotheme.com/html/porto_ecommerce/assets/images/products/zoom/product-5-big.jpg'],
-        reviews: [{ avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }, { avatar: 'https://portotheme.com/html/porto_ecommerce/assets/images/blog/author.jpg', star: 3, comment: 'Excellent.', name: 'Joe Doe', date: "2018-4-12" }],
-        price: 1999,
-        discount: 15,
-        sku: 654613612,
-        category: 'shoes',
-        name: 's',
-        isHot: true,
-        description: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.',
-        weight: 23,
-        dimensions: [12, 24, 35],
-        color: ['Black', 'Green', 'Indigo'],
-        size: ['L', 'M', 'S']
-    };
+const SingleProductPage = ({ name, product }: { name: string; product: IProduct; }) => {
 
+    const data = { ...product, reviews: [] };
 
+    console.log(data);
     return (
         <>
             <Head>
-                <title>{`${name} | SHOP House`}</title>
+                <title>{`${LinkBuilder(name)} | SHOP House`}</title>
                 <meta name='description' content={`Buy the ${name} today! This high-quality widget is made from durable materials and comes with a lifetime guarantee. Order now and enjoy fast, free shipping.`} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon1.ico" />
@@ -49,10 +74,10 @@ const SingleProductPage = ({ name }: { name: string; }) => {
                     <BreadCrumpNavigator paths={['PRODUCTS']} />
                     <div className='flex flex-col md:flex-row mb-[30px]'>
                         <ImageSlider img={data.img} />
-                        <ProductInformation category={data.category} description={data.description} discount={data.discount} name={name} price={data.price} reviews={data.reviews.length} sku={data.sku} />
+                        <ProductInformation category={data.category} description={data.description} discount={data.discount} name={LinkBuilder(name)} price={product.price} reviews={data.reviews.length} sku={data.sku} />
                     </div>
                     <div className='px-[10px]'>
-                        <InformationTabs color={data.color} name={name} dimensions={data.dimensions} size={data.size} weight={data.weight} description={data.description} reviews={data.reviews} />
+                        <InformationTabs color={data.colors} name={LinkBuilder(name)} dimensions={data.dimensions} size={data.sizes} weight={data.weight} description={data.description} reviews={data.reviews} />
                     </div>
                     <RelatedProducts />
                 </div>

@@ -1,3 +1,4 @@
+import CustomUnstyledLink from '@/components/helpers/CustomUnstyledLink';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
@@ -17,6 +18,7 @@ const HomeSingleProduct = ({ item: { category, discount, img, isHot, name, price
 }) => {
     const [figImg, setFigImg] = useState(false);
 
+
     return (
         <div className={`${((section === 'new' && isNewArrival) || (section === 'featured' && isFeatured)) && `animate__fadeInLeft animate__animated animate__delay-${delay}s`}  w-full shadow-none duration-500 hover:shadow-[0_12px_20px_0_rgba(0,0,0,0.08)]`} onMouseEnter={() => {
             setFigImg(true);
@@ -24,10 +26,12 @@ const HomeSingleProduct = ({ item: { category, discount, img, isHot, name, price
             setFigImg(false);
         }}>
             <figure className='w-full cursor-pointer aspect-[1/1] relative rounded-lg mb-4'>
-                <div className='w-full h-full relative'>
-                    <Image src={img[0]} fill alt="product-image-1" className={`w-full ${figImg ? 'opacity-0' : 'opacity-100'} object-cover z-[3] h-full rounded-lg relative duration-500`} />
-                    <Image src={img[1]} fill className='w-full object-cover z-[2] h-full rounded-lg duration-500 absolute inset-0' alt="product-image-2" />
-                </div>
+                <CustomUnstyledLink to={`/product/${name.split(' ').map(i => i.toLowerCase()).join('-')}`}>
+                    <div className='w-full h-full relative'>
+                        <Image src={img[0]} fill alt="product-image-1" className={`w-full ${figImg ? 'opacity-0' : 'opacity-100'} object-cover z-[3] h-full rounded-lg relative duration-500`} />
+                        <Image src={img[1]} fill className='w-full object-cover z-[2] h-full rounded-lg duration-500 absolute inset-0' alt="product-image-2" />
+                    </div>
+                </CustomUnstyledLink>
 
 
                 <div className='absolute top-2 z-[20] left-2'>
@@ -40,7 +44,7 @@ const HomeSingleProduct = ({ item: { category, discount, img, isHot, name, price
             </figure>
             <div className='px-2 flex flex-col items-center text-center'>
                 <p className='uppercase text-[9px] md:text-[10px] hover:text-[#08c] duration-500 cursor-pointer text-[#777]'>CATEGORY : {category}</p>
-                <p title={name} className='text-[13.5px] hover:text-[#08c] duration-500 cursor-pointer truncate w-full md:text-[15px] text-[#222529]'>{name}</p>
+                <CustomUnstyledLink to={`/product/${name.split(' ').map(i => i.toLowerCase()).join('-')}`}><p title={name} className='text-[13.5px] hover:text-[#08c] duration-500 cursor-pointer truncate w-full md:text-[15px] text-[#222529]'>{name}</p></CustomUnstyledLink>
                 <div className='mb-3 flex'>
                     {new Array(rating).fill(0).map((_, i) => <AiFillStar key={i} className='text-[#6E7F80]' />)}
                     {new Array(5 - rating).fill(0).map((_, i) => <AiOutlineStar key={i} className='text-[#00000029]' />)}
@@ -58,9 +62,11 @@ const HomeSingleProduct = ({ item: { category, discount, img, isHot, name, price
                         {figImg && <BsCartPlus className='text-xl' />}
                         <span>ADD TO CART</span>
                     </button>
-                    <button title='View Product Details' className={`${!figImg ? '-left-[40px] opacity-0' : '-left-0 opacity-100'} w-[36px] text-[#6f6e6b] duration-500 hover:text-[#333] hidden xs:flex justify-center items-center bg-[#F4F4F4] h-[36px] text-[14px] relative `}>
-                        <FiExternalLink />
-                    </button>
+                    <CustomUnstyledLink to={`/product/${name.split(' ').map(i => i.toLowerCase()).join('-')}`}>
+                        <button title='View Product Details' className={`${!figImg ? '-left-[40px] opacity-0' : '-left-0 opacity-100'} w-[36px] text-[#6f6e6b] duration-500 hover:text-[#333] hidden xs:flex justify-center items-center bg-[#F4F4F4] h-[36px] text-[14px] relative `}>
+                            <FiExternalLink />
+                        </button>
+                    </CustomUnstyledLink>
                 </div>
             </div>
         </div>

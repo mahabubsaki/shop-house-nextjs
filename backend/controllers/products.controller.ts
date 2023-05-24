@@ -10,7 +10,7 @@ export const productsController = async (req: Request, res: Response, next: Next
         const pageSize = Number(req.query.pageSize) || 12;
 
         const pageNum = Number(req.query.pageNumber) || 1;
-        const sort = req.query.sort.toString() || 'name';
+        const sort = req.query?.sort?.toString() || 'name';
         const type = req.query.type !== 'false';
         const skip = (pageNum - 1) * pageSize;
 

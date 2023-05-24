@@ -5,10 +5,15 @@ const resolvers = {
             const products = await ProductModel.distinct('subCategory');
             return products;
         },
-        allColors: async () => {
-            const allColors = await ProductModel.find({});
-            return allColors;
-        }
+        allProducts: async () => {
+            const allProducts = await ProductModel.find({});
+            return allProducts;
+        },
+        getProductByName: async (_, { name }) => {
+            console.log(name);
+            const products = await ProductModel.find({ name: { $regex: name, $options: 'i' } });
+            return products;
+        },
     }
 };
 export default resolvers;

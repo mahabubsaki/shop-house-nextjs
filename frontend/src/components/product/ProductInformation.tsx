@@ -6,7 +6,7 @@ import { FiHeart } from 'react-icons/fi';
 import { ImFacebook, ImLinkedin2, ImTwitter } from 'react-icons/im';
 import { FaGooglePlusG } from 'react-icons/fa';
 
-const ProductInformation = ({ name, reviews, discount, price, description, sku, category }: { name: string, reviews: number, discount: number, price: number, description: string, sku: number, category: string; }) => {
+const ProductInformation = ({ name, reviews, discount, price, description, sku, category }: { name: string, reviews: number, discount: number, price: number, description: string, sku: string, category: string; }) => {
 
     const [quantity, setQuantiy] = useState(1);
     return (
@@ -23,8 +23,8 @@ const ProductInformation = ({ name, reviews, discount, price, description, sku, 
                 <div className='mb-[23px]'>
                     {discount ? <div className='flex gap-2 items-center'>
                         <p className='text-[17px] align-middle relative top-[6px] text-[#a7a7a7] line-through font-semibold md:text-[19px]'>{priceModifier(price)}</p>
-                        <p className='text-[21.5px] md:text-[24px] text-[#222529] font-semibold'>{priceModifier(Math.round(price - price * (discount / 100)))}</p>
-                    </div> : <p>{priceModifier(price)}</p>}
+                        <p className='text-[21.5px] md:text-[24px] text-[#222529] font-semibold'>${priceModifier(Math.round(price - price * (discount / 100)))}</p>
+                    </div> : <p className='text-[21.5px] md:text-[24px] text-[#222529] font-semibold'>${priceModifier(price)}</p>}
                 </div>
                 <p className='mb-[15px] text-[#777777] text-[14.5px] md:text-base'>{description.length > 300 ? description.slice(0, 300) + '...' : description}</p>
                 <ul className='text-[11.8px] mb-[10px] flex flex-col gap-[10px] md:text-[12px] uppercase leading-[18px]'>

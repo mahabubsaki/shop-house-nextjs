@@ -11,7 +11,7 @@ const BreadCrumpNavigator = ({ paths }: { paths: string[]; }) => {
             </Link>
             {paths.map((item, i) => {
                 if (i == paths.length) {
-                    return <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={`/${item.toLowerCase()}`}><span key={i} className='uppercase'>{item.split('-').join(' ')}</span></Link>;
+                    return <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={`/${item.toLowerCase().split(' ')}`}><span key={i} className='uppercase'>{item.split('-').join(' ')}</span></Link>;
                 } else {
                     return <React.Fragment key={i}>
                         <IoIosArrowForward className='' />

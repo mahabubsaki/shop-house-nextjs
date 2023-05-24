@@ -3,20 +3,26 @@ const typeDefs = `#graphql
     allCategories: [String!]!
   }
   type Query {
-    allColors:[AllProduct]!
+    allProducts:[AllProductInfo]!
   }
-  type AllProduct {
+  type Query {
+    getProductByName(name: String!): [AllProductInfo!]!
+  }
+  type AllProductInfo {
     img: [String!]!
-    price:[Int!]!
+    price:Int!
     _id:ID!
-    sku:[String!]!
+    sku:String!
+    discount:Int!
     category:String!
     name:String!
-    specialType:String!
+    specialType:String
+    subCategory:String!
     isHot:Boolean!
+    stock:Int!
     description:String!
-    weight:Int!
-    dimensions:[String!]!
+    weight:Float!
+    dimensions:[Int!]!
     colors:[String!]!
     sizes:[String!]!
   }

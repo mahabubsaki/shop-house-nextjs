@@ -76,6 +76,12 @@ app.get("/", async (req: Request, res: Response, next: NextFunction) => {
         message: "🎉 Congratulations! Your Server Works Perfectly! 🎉",
     });
 });
+app.get("/test", async (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).send({
+        status: 200,
+        message: "🎉 test 🎉",
+    });
+});
 
 
 

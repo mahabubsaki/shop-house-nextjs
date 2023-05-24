@@ -53,17 +53,33 @@ var resolvers = {
                 }
             });
         }); },
-        allColors: function () { return __awaiter(void 0, void 0, void 0, function () {
-            var allColors;
+        allProducts: function () { return __awaiter(void 0, void 0, void 0, function () {
+            var allProducts;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, product_model_1.default.find({})];
                     case 1:
-                        allColors = _a.sent();
-                        return [2 /*return*/, allColors];
+                        allProducts = _a.sent();
+                        return [2 /*return*/, allProducts];
                 }
             });
-        }); }
+        }); },
+        getProductByName: function (_, _a) {
+            var name = _a.name;
+            return __awaiter(void 0, void 0, void 0, function () {
+                var products;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            console.log(name);
+                            return [4 /*yield*/, product_model_1.default.find({ name: { $regex: name, $options: 'i' } })];
+                        case 1:
+                            products = _b.sent();
+                            return [2 /*return*/, products];
+                    }
+                });
+            });
+        },
     }
 };
 exports.default = resolvers;

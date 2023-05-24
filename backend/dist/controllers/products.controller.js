@@ -58,27 +58,28 @@ var _a = require('date-fns'), addDays = _a.addDays, differenceInDays = _a.differ
 var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var pageSize, pageNum, sort, type, skip, _a, _b, error_1;
     var _c, _d;
-    return __generator(this, function (_e) {
-        switch (_e.label) {
+    var _e, _f;
+    return __generator(this, function (_g) {
+        switch (_g.label) {
             case 0:
-                _e.trys.push([0, 3, , 4]);
+                _g.trys.push([0, 3, , 4]);
                 console.log(req.query);
                 pageSize = Number(req.query.pageSize) || 12;
                 pageNum = Number(req.query.pageNumber) || 1;
-                sort = req.query.sort.toString() || 'name';
+                sort = ((_f = (_e = req.query) === null || _e === void 0 ? void 0 : _e.sort) === null || _f === void 0 ? void 0 : _f.toString()) || 'name';
                 type = req.query.type !== 'false';
                 skip = (pageNum - 1) * pageSize;
                 _b = (_a = res.status(200)).send;
                 _c = {};
                 return [4 /*yield*/, product_model_1.default.find({}).sort((_d = {}, _d[sort] = type ? 1 : -1, _d)).skip(skip).limit(pageSize)];
             case 1:
-                _c.products = _e.sent();
+                _c.products = _g.sent();
                 return [4 /*yield*/, product_model_1.default.estimatedDocumentCount()];
             case 2:
-                _b.apply(_a, [(_c.totalProduct = _e.sent(), _c)]);
+                _b.apply(_a, [(_c.totalProduct = _g.sent(), _c)]);
                 return [3 /*break*/, 4];
             case 3:
-                error_1 = _e.sent();
+                error_1 = _g.sent();
                 if (error_1 instanceof Error) {
                     next((0, http_errors_1.default)(400, 'Bad Request', { message: error_1.message }));
                 }

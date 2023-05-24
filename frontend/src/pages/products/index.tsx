@@ -36,6 +36,7 @@ const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: 
             (async function fetchPageData() {
                 setLoading(true);
                 const { products, totalProduct } = await fetchProducts(Number(currentPageSize || 12), Number(currentPageNumber || 1), (currentSort || 'name').toString(), !!(currentType));
+                console.log(products);
                 setCurrentProducts(products);
                 setTotalProducts(totalProduct);
                 setLoading(false);

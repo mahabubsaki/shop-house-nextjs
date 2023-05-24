@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "F:/projects/quick-cart/Backend"
+		},
+		{
+			"path": "F:/projects/quick-cart/Frontend"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Frontend"
+	}
+}
