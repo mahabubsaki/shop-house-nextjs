@@ -9,3 +9,5 @@ export default interface User {
     dob: string,
     email: string,
 }
+
+

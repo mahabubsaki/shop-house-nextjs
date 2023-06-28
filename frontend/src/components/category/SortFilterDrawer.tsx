@@ -1,12 +1,22 @@
 import { Accordion, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { FocusableElement } from "@chakra-ui/utils";
 import CustomAccordion from '../helpers/CustomAccordion';
 import { categories } from '@/utils/constants';
+import toaster from '@/utils/toaster';
+import axios from 'axios';
 
 
 
-const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void, btnRef: React.RefObject<FocusableElement> | undefined; }) => {
+const SortFilterDrawer = ({ isOpen, onClose, filterProducts }: { isOpen: boolean, onClose: () => void, btnRef: React.RefObject<FocusableElement> | undefined, filterProducts: () => void; }) => {
+    const [checkedItems, setCheckedItems] = useState<string[]>([]);
+    const [price, setPrice] = useState([0, 1000]);
+    const [selectedColor, setSelectedColor] = useState<string[]>(['#000000']);
+    const [selectedSize, setSelectedSize] = useState<string[]>(['XXL']);
+    console.log(price);
+    console.log(checkedItems);
+    console.log(selectedColor);
+    console.log(selectedSize);
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='left' >
             <DrawerOverlay />
@@ -15,7 +25,7 @@ const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                 <aside className='mt-2'>
                     <div className='px-5'>
                         <Accordion allowToggle allowMultiple>
-                            <CustomAccordion section='category' allCategories={
+                            <CustomAccordion checkedItems={checkedItems} setCheckedItems={setCheckedItems} section='category' allCategories={
                                 [
                                     { name: 'Clothing', subCategory: ["Men's", "Women's", "Kid's"] },
                                     { name: 'Electronics', subCategory: ['Speakers', 'Machines', 'Headphones'] },
@@ -30,12 +40,27 @@ const SortFilterDrawer = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                                     { name: 'Accessories', subCategory: ['Shoes', 'Caps', 'Watches', 'Backpacks', 'Sofa'] }
                                 ]
                             } />
-                            <CustomAccordion section='price' />
-                            <CustomAccordion section='color' colors={['#000000', '#0188CC', '#81D742', '#6085A5', '#AB6E6E']} />
-                            <CustomAccordion section='size' sizes={['XXL', 'XL', 'L', 'M', 'S']} />
+                            <CustomAccordion price={price} setPrice={setPrice} section='price' />
+                            <CustomAccordion selectedColor={selectedColor} setSelectedColor={setSelectedColor} section='color' colors={[
+                                '#808080', '#000000',
+                                '#0000FF', '#964B00',
+                                '#F5F5DC', '#00FF00',
+                                '#FFA500', '#FFFF00',
+                                '#FFFFFF', '#FF0000'
+                            ]
+                            } />
+                            <CustomAccordion selectedSize={selectedSize} setSelectedSize={setSelectedSize} section='size' sizes={['XXL', 'XL', 'L', 'M', 'S']} />
                         </Accordion>
                     </div>
-                    <button className='w-full py-4 mt-8 text-[16px] font-bold bg-white hover:bg-[#08c] duration-500 hover:border-white text-black hover:text-white border border-[#08c]'>
+                    <button onClick={async () => {
+                        if (!checkedItems.length) {
+                            toaster('Please select categories you want to filter', false);
+                        }
+                        const { data } = await axios.post('http://localhost:6969/api/filter-product', {
+                            subCategory: checkedItems, price, colors: selectedColor, sizes: selectedSize
+                        });
+                        console.log(data);
+                    }} className='w-full py-4 mt-8 text-[16px] font-bold bg-white hover:bg-[#08c] duration-500 hover:border-white text-black hover:text-white border border-[#08c]'>
                         Filter
                     </button>
                 </aside>

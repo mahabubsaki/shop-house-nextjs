@@ -30,6 +30,9 @@ const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: 
     const [currentProducts, setCurrentProducts] = useState(products);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const filterProducts = () => {
+
+    };
     useEffect(() => {
         try {
 
@@ -61,7 +64,7 @@ const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: 
                     <BreadCrumpNavigator paths={['Category']} />
                     <SortFilterSection setActivePage={setActivePage} setCurrentPageNumber={setCurrentPageNumber} setCurrentPageSize={setCurrentPageSize} setCurrentSort={setCurrentSort} setCurrentType={setCurrentType} btnRef={btnRef} onOpen={onOpen} />
                     <SortFilterSectionDesktop setActivePage={setActivePage} setCurrentPageNumber={setCurrentPageNumber} setCurrentPageSize={setCurrentPageSize} setCurrentSort={setCurrentSort} setCurrentType={setCurrentType} btnRef={btnRef} onOpen={onOpen} />
-                    <SortFilterDrawer btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
+                    <SortFilterDrawer filterProducts={filterProducts} btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
                     <ProductArea loading={loading} setActivePage={setActivePage} activePage={activePage} setCurrentPageNumber={setCurrentPageNumber} currentProducts={currentProducts} totalProducts={totalProducts} currentPageSize={currentPageSize} />
                 </div>
             </UserLayout>

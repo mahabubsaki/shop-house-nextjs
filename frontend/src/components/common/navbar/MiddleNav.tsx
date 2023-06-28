@@ -14,6 +14,7 @@ import { Sidenav, Nav } from 'rsuite';
 import { FaSearch } from 'react-icons/fa';
 import { brands, categories } from '@/utils/constants';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const MiddleNav = () => {
     const btnRef = useRef<HTMLButtonElement>(null);
@@ -168,8 +169,8 @@ const MiddleNav = () => {
                         <span className='text-[15px]'>$134.00</span>
                     </div>
                     <div className='mt-[10px] flex flex-col gap-[15px]'>
-                        <button className='bg-[#e7e7e7] hover:bg-[#f1f1f1] duration-500 text-[12px] font-semibold py-[14px] leading-[16px] tracking-wide rounded-sm px-[25px]'>VIEW CART</button>
-                        <button className='bg-[#222529] hover:bg-[#34393F] text-white duration-500 text-[12px] font-semibold py-[14px] leading-[16px] tracking-wide rounded-sm px-[25px]'>CHECKOUT</button>
+                        <button className='bg-[#e7e7e7] hover:bg-[#f1f1f1] duration-500 text-[12px] font-semibold py-[14px] leading-[16px] tracking-wide rounded-sm px-[25px]'><Link className='hover:no-underline hover:text-[#222529]' href={'/cart'}>VIEW CART</Link></button>
+                        <button className='bg-[#222529] hover:bg-[#34393F] text-white duration-500 text-[12px] font-semibold py-[14px] leading-[16px] tracking-wide rounded-sm px-[25px]'><Link className='hover:no-underline hover:text-white' href={'/checkout'}>CHECKOUT</Link></button>
                     </div>
                 </DrawerContent>
             </Drawer >

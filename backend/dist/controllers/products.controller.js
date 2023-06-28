@@ -50,7 +50,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addProductToCollection = exports.singleProductController = exports.productsController = void 0;
+exports.filterProducts = exports.addProductToCollection = exports.singleProductController = exports.productsController = void 0;
 var http_errors_1 = __importDefault(require("http-errors"));
 var product_model_1 = __importDefault(require("../models/product.model"));
 var skuGenerator_helper_1 = __importDefault(require("../helpers/skuGenerator.helper"));
@@ -150,43 +150,26 @@ var addProductToCollection = function (req, res, next) { return __awaiter(void 0
     });
 }); };
 exports.addProductToCollection = addProductToCollection;
-// GET /products?pageSize=10&pageNum=1&sort=name
-// router.get('/products', async (req, res) => {
-//   const pageSize = parseInt(req.query.pageSize) || 10;
-//   const pageNum = parseInt(req.query.pageNum) || 1;
-//   const sort = req.query.sort || 'name';
-//   const skip = (pageNum - 1) * pageSize;
-//   const totalProducts = await Product.countDocuments();
-//   const totalPages = Math.ceil(totalProducts / pageSize);
-//   Product.find()
-//     .sort(sort)
-//     .skip(skip)
-//     .limit(pageSize)
-//     .exec((err, products) => {
-//       if (err) {
-//         return res.status(500).json({ message: err.message });
-//       }
-//       res.json({
-//         products,
-//         pageInfo: {
-//           totalProducts,
-//           totalPages,
-//           currentPage: pageNum,
-//           pageSize,
-//         },
-//       });
-//     });
-// });
-// module.exports = router;
-// const products = await ProductModel.find({});
-// // Loop through products and add a random rating
-// for (const product of products) {
-//     const startDate = new Date(2023, 2, 17); // March 17, 2023
-//     const endDate = new Date(2023, 3, 26); // April 26, 2023
-//     const range = differenceInDays(endDate, startDate) + 1;
-//     const randomDate = addDays(startDate, Math.floor(Math.random() * range));
-//     product.addedDate = randomDate;
-//     await product.save();
-// }
-// res.send('Random ratings added to products without a rating.');
+var filterProducts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, subCategory, price, colors, sizes, filters, data;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, subCategory = _a.subCategory, price = _a.price, colors = _a.colors, sizes = _a.sizes;
+                console.log(colors);
+                filters = {
+                    subCategory: { $in: subCategory },
+                    price: { $gte: price[0], $lte: price[1] },
+                    colors: { $in: colors },
+                    sizes: { $in: sizes }
+                };
+                return [4 /*yield*/, product_model_1.default.find(filters)];
+            case 1:
+                data = _b.sent();
+                res.send(data);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.filterProducts = filterProducts;
 //# sourceMappingURL=products.controller.js.map

@@ -9,5 +9,6 @@ var router = express_1.default.Router();
 router.get('/products', products_controller_1.productsController);
 router.get('/product/:id', products_controller_1.singleProductController);
 router.post('/add-product', products_controller_1.addProductToCollection);
+router.post('/filter-product', products_controller_1.filterProducts);
 exports.default = router;
 //# sourceMappingURL=products.route.js.map

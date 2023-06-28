@@ -42,15 +42,8 @@ const BottomStickyNav = () => {
                                 {categories.map((item, index) => <li key={index}>{item.name}</li>)}
                             </ul>
                         </li>
-                        <li className={`border-transparent relative border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] cursor-pointer flex items-center gap-1 ${styles['lang-title']}`}>
-                            <span>BRANDS</span>
-                            <MdOutlineKeyboardArrowDown />
-                            <ul className={`absolute z-1 -left-[20px] flex flex-col -right-[20px] shadow-md duration-500 ${styles['lang-dropdown']}`}>
-                                {brands.map((item, index) => <li key={index}>{item}</li>)}
-                            </ul>
-                        </li>
-                        <li className='border-transparent border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] cursor-pointer'>ABOUT US</li>
-                        <li className='border-transparent border-t-[3px] cursor-pointer duration-500 hover:border-[#08C] z-20 py-[20px]'>CONTACT US</li>
+                        <li className='border-transparent border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] cursor-pointer'><Link className='hover:no-underline hover:text-black' href={'/about-us'}>ABOUT US</Link></li>
+                        <li className='border-transparent border-t-[3px] cursor-pointer duration-500 hover:border-[#08C] z-20 py-[20px]'><Link className='hover:no-underline hover:text-black' href={'/contact-us'}>CONTACT US</Link></li>
                     </ul>
                     <span className='text-[12px] font-semibold border-transparent border-t-[3px] duration-500 hover:border-[#08C] z-20 py-[20px] cursor-pointer'>
                         SPECIAL OFFER!

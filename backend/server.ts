@@ -8,7 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cookieParser from 'cookie-parser';
 import { expressMiddleware } from '@apollo/server/express4';
-import fs from 'fs';
+
 
 //internel import
 import productsRoute from './routes/products.route';

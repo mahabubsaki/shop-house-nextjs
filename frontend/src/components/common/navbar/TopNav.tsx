@@ -22,10 +22,18 @@ const TopNav = () => {
                             <li>
                                 <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/dashboard'}><span>Dashboard</span></Link>
                             </li>
-                            <li>About Us</li>
-                            <li>My Wishlist</li>
-                            <li>Cart</li>
-                            <li>Log In</li>
+                            <li>
+                                <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/dashboard/wishlist'}><span>My Wishlist</span></Link>
+                            </li>
+                            <li>
+                                <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/about-us'}><span>About Us</span></Link>
+                            </li>
+                            <li>
+                                <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/cart'}><span>Cart</span></Link>
+                            </li>
+                            <li>
+                                <Link className='hover:no-underline focus:no-underline hover:text-[#08c]' href={'/auth/login'}><span>Log In</span></Link>
+                            </li>
                         </ul>
                     </div>
                     <div>

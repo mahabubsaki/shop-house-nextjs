@@ -4,6 +4,8 @@ import ProductModel from '../models/product.model';
 import skuGenerator from '../helpers/skuGenerator.helper';
 const { addDays, differenceInDays } = require('date-fns');
 
+
+
 export const productsController = async (req: Request, res: Response, next: NextFunction) => {
     try {
         console.log(req.query);
@@ -60,53 +62,17 @@ export const addProductToCollection = async (req: Request, res: Response, next: 
 };
 
 
+export const filterProducts = async (req: Request, res: Response, next: NextFunction) => {
+    const { subCategory, price, colors, sizes } = req.body;
+    console.log(colors);
+    const filters = {
+        subCategory: { $in: subCategory },
+        price: { $gte: price[0], $lte: price[1] },
+        colors: { $in: colors },
+        sizes: { $in: sizes }
+    };
+    const data = await ProductModel.find(filters);
 
+    res.send(data);
 
-// GET /products?pageSize=10&pageNum=1&sort=name
-// router.get('/products', async (req, res) => {
-//   const pageSize = parseInt(req.query.pageSize) || 10;
-//   const pageNum = parseInt(req.query.pageNum) || 1;
-//   const sort = req.query.sort || 'name';
-
-//   const skip = (pageNum - 1) * pageSize;
-//   const totalProducts = await Product.countDocuments();
-//   const totalPages = Math.ceil(totalProducts / pageSize);
-
-//   Product.find()
-//     .sort(sort)
-//     .skip(skip)
-//     .limit(pageSize)
-//     .exec((err, products) => {
-//       if (err) {
-//         return res.status(500).json({ message: err.message });
-//       }
-
-//       res.json({
-//         products,
-//         pageInfo: {
-//           totalProducts,
-//           totalPages,
-//           currentPage: pageNum,
-//           pageSize,
-//         },
-//       });
-//     });
-// });
-
-// module.exports = router;
-
-
-// const products = await ProductModel.find({});
-
-// // Loop through products and add a random rating
-// for (const product of products) {
-//     const startDate = new Date(2023, 2, 17); // March 17, 2023
-//     const endDate = new Date(2023, 3, 26); // April 26, 2023
-//     const range = differenceInDays(endDate, startDate) + 1;
-
-//     const randomDate = addDays(startDate, Math.floor(Math.random() * range));
-//     product.addedDate = randomDate;
-//     await product.save();
-// }
-
-// res.send('Random ratings added to products without a rating.');
+};
