@@ -50,41 +50,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.filterProducts = exports.addProductToCollection = exports.singleProductController = exports.productsController = void 0;
+exports.addProductToCollection = exports.singleProductController = exports.productsController = void 0;
 var http_errors_1 = __importDefault(require("http-errors"));
 var product_model_1 = __importDefault(require("../models/product.model"));
 var skuGenerator_helper_1 = __importDefault(require("../helpers/skuGenerator.helper"));
 var _a = require('date-fns'), addDays = _a.addDays, differenceInDays = _a.differenceInDays;
 var productsController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var pageSize, pageNum, sort, type, skip, _a, _b, error_1;
+    var pageSize, pageNum, sort, type, skip, filter, total, _a, _b, error_1;
     var _c, _d;
     var _e, _f;
     return __generator(this, function (_g) {
         switch (_g.label) {
             case 0:
-                _g.trys.push([0, 3, , 4]);
-                console.log(req.query);
+                _g.trys.push([0, 5, , 6]);
+                console.log(req.body);
                 pageSize = Number(req.query.pageSize) || 12;
                 pageNum = Number(req.query.pageNumber) || 1;
                 sort = ((_f = (_e = req.query) === null || _e === void 0 ? void 0 : _e.sort) === null || _f === void 0 ? void 0 : _f.toString()) || 'name';
                 type = req.query.type !== 'false';
                 skip = (pageNum - 1) * pageSize;
+                filter = {};
+                return [4 /*yield*/, product_model_1.default.estimatedDocumentCount()];
+            case 1:
+                total = _g.sent();
+                if (!(Object.keys(req.body).length > 0)) return [3 /*break*/, 3];
+                filter = {
+                    $and: [{ subCategory: { $in: req.body.subCategory } },
+                        { price: { $gte: req.body.price[0], $lte: req.body.price[1] } },
+                        { colors: { $in: req.body.colors } },
+                        { sizes: { $in: req.body.sizes } }]
+                };
+                return [4 /*yield*/, product_model_1.default.find(filter)];
+            case 2:
+                total = (_g.sent()).length;
+                _g.label = 3;
+            case 3:
                 _b = (_a = res.status(200)).send;
                 _c = {};
-                return [4 /*yield*/, product_model_1.default.find({}).sort((_d = {}, _d[sort] = type ? 1 : -1, _d)).skip(skip).limit(pageSize)];
-            case 1:
-                _c.products = _g.sent();
-                return [4 /*yield*/, product_model_1.default.estimatedDocumentCount()];
-            case 2:
-                _b.apply(_a, [(_c.totalProduct = _g.sent(), _c)]);
-                return [3 /*break*/, 4];
-            case 3:
+                return [4 /*yield*/, product_model_1.default.find(filter).sort((_d = {}, _d[sort] = type ? 1 : -1, _d)).skip(skip).limit(pageSize)];
+            case 4:
+                _b.apply(_a, [(_c.products = _g.sent(),
+                        _c.totalProduct = total,
+                        _c)]);
+                return [3 /*break*/, 6];
+            case 5:
                 error_1 = _g.sent();
                 if (error_1 instanceof Error) {
                     next((0, http_errors_1.default)(400, 'Bad Request', { message: error_1.message }));
                 }
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
@@ -150,26 +165,4 @@ var addProductToCollection = function (req, res, next) { return __awaiter(void 0
     });
 }); };
 exports.addProductToCollection = addProductToCollection;
-var filterProducts = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, subCategory, price, colors, sizes, filters, data;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, subCategory = _a.subCategory, price = _a.price, colors = _a.colors, sizes = _a.sizes;
-                console.log(colors);
-                filters = {
-                    subCategory: { $in: subCategory },
-                    price: { $gte: price[0], $lte: price[1] },
-                    colors: { $in: colors },
-                    sizes: { $in: sizes }
-                };
-                return [4 /*yield*/, product_model_1.default.find(filters)];
-            case 1:
-                data = _b.sent();
-                res.send(data);
-                return [2 /*return*/];
-        }
-    });
-}); };
-exports.filterProducts = filterProducts;
 //# sourceMappingURL=products.controller.js.map

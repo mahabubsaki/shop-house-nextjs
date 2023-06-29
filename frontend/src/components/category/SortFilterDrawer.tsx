@@ -5,18 +5,16 @@ import CustomAccordion from '../helpers/CustomAccordion';
 import { categories } from '@/utils/constants';
 import toaster from '@/utils/toaster';
 import axios from 'axios';
+import IProduct from '@/interfaces/product.interface';
 
 
 
-const SortFilterDrawer = ({ isOpen, onClose, filterProducts }: { isOpen: boolean, onClose: () => void, btnRef: React.RefObject<FocusableElement> | undefined, filterProducts: () => void; }) => {
+const SortFilterDrawer = ({ isOpen, onClose, filterProducts, setFilterObj, setActivePage }: { isOpen: boolean, onClose: () => void, btnRef: React.RefObject<FocusableElement> | undefined, filterProducts: (pd: IProduct[]) => void, setFilterObj: React.Dispatch<React.SetStateAction<{}>>, setActivePage: React.Dispatch<React.SetStateAction<number>>; }) => {
     const [checkedItems, setCheckedItems] = useState<string[]>([]);
     const [price, setPrice] = useState([0, 1000]);
     const [selectedColor, setSelectedColor] = useState<string[]>(['#000000']);
     const [selectedSize, setSelectedSize] = useState<string[]>(['XXL']);
-    console.log(price);
-    console.log(checkedItems);
-    console.log(selectedColor);
-    console.log(selectedSize);
+
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='left' >
             <DrawerOverlay />
@@ -52,15 +50,23 @@ const SortFilterDrawer = ({ isOpen, onClose, filterProducts }: { isOpen: boolean
                             <CustomAccordion selectedSize={selectedSize} setSelectedSize={setSelectedSize} section='size' sizes={['XXL', 'XL', 'L', 'M', 'S']} />
                         </Accordion>
                     </div>
+                    <button className='w-full py-3 my-6 text-[16px] font-bold bg-red-500 hover:bg-white duration-500 hover:border-red-500 text-black hover:text-red-500 border border-red-500' onClick={() => {
+                        setCheckedItems([]);
+                        setPrice([0, 1000]);
+                        setSelectedColor(['#000000']);
+                        setSelectedSize(['XXL']);
+                        setFilterObj({});
+                    }}>Clear Filter</button>
+
                     <button onClick={async () => {
                         if (!checkedItems.length) {
                             toaster('Please select categories you want to filter', false);
                         }
-                        const { data } = await axios.post('http://localhost:6969/api/filter-product', {
+                        setActivePage(1);
+                        setFilterObj({
                             subCategory: checkedItems, price, colors: selectedColor, sizes: selectedSize
                         });
-                        console.log(data);
-                    }} className='w-full py-4 mt-8 text-[16px] font-bold bg-white hover:bg-[#08c] duration-500 hover:border-white text-black hover:text-white border border-[#08c]'>
+                    }} className='w-full py-3  text-[16px] font-bold bg-white hover:bg-[#08c] duration-500 hover:border-white text-black hover:text-white border border-[#08c]'>
                         Filter
                     </button>
                 </aside>

@@ -90,7 +90,7 @@ app.use("/api", checkDB, productsRoute);
 app.use("/api", checkDB, otherRoute);
 
 
-
+console.log('object');
 //Error handling
 function errorRoutesHandler() {
     app.use(errorCreater);

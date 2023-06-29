@@ -8,15 +8,29 @@ const { addDays, differenceInDays } = require('date-fns');
 
 export const productsController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log(req.query);
+        console.log(req.body);
         const pageSize = Number(req.query.pageSize) || 12;
 
         const pageNum = Number(req.query.pageNumber) || 1;
         const sort = req.query?.sort?.toString() || 'name';
         const type = req.query.type !== 'false';
         const skip = (pageNum - 1) * pageSize;
+        let filter = {};
+        let total = await ProductModel.estimatedDocumentCount();
+        if (Object.keys(req.body).length > 0) {
+            filter = {
+                $and: [{ subCategory: { $in: req.body.subCategory } },
+                { price: { $gte: req.body.price[0], $lte: req.body.price[1] } },
+                { colors: { $in: req.body.colors } },
+                { sizes: { $in: req.body.sizes } }]
+            };
+            total = (await ProductModel.find(filter)).length;
+        }
 
-        res.status(200).send({ products: await ProductModel.find({}).sort({ [sort]: type ? 1 : -1 }).skip(skip).limit(pageSize), totalProduct: await ProductModel.estimatedDocumentCount() });
+
+        res.status(200).send({
+            products: await ProductModel.find(filter).sort({ [sort]: type ? 1 : -1 }).skip(skip).limit(pageSize), totalProduct: total
+        });
     } catch (error) {
         if (error instanceof Error) {
             next(createError(400, 'Bad Request', { message: error.message }));
@@ -61,18 +75,3 @@ export const addProductToCollection = async (req: Request, res: Response, next: 
     }
 };
 
-
-export const filterProducts = async (req: Request, res: Response, next: NextFunction) => {
-    const { subCategory, price, colors, sizes } = req.body;
-    console.log(colors);
-    const filters = {
-        subCategory: { $in: subCategory },
-        price: { $gte: price[0], $lte: price[1] },
-        colors: { $in: colors },
-        sizes: { $in: sizes }
-    };
-    const data = await ProductModel.find(filters);
-
-    res.send(data);
-
-};

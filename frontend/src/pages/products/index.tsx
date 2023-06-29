@@ -23,6 +23,7 @@ interface PageProps {
 const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: PageProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [totalProducts, setTotalProducts] = useState(totalProduct);
+    const [filterObj, setFilterObj] = useState({});
     const [currentPageSize, setCurrentPageSize] = useState(pageSize);
     const [currentPageNumber, setCurrentPageNumber] = useState(pageNumber);
     const [currentType, setCurrentType] = useState(type);
@@ -30,25 +31,29 @@ const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: 
     const [currentProducts, setCurrentProducts] = useState(products);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const filterProducts = () => {
+    const filterProducts = (pd: IProduct[]) => {
+
 
     };
     useEffect(() => {
         try {
 
             (async function fetchPageData() {
+                onClose();
                 setLoading(true);
-                const { products, totalProduct } = await fetchProducts(Number(currentPageSize || 12), Number(currentPageNumber || 1), (currentSort || 'name').toString(), !!(currentType));
-                console.log(products);
+                const { products, totalProduct } = await fetchProducts(Number(currentPageSize || 12), Number(currentPageNumber || 1), (currentSort || 'name').toString(), !!(currentType), filterObj);
+
                 setCurrentProducts(products);
                 setTotalProducts(totalProduct);
                 setLoading(false);
+
             })();
         }
         catch (err) {
 
         }
-    }, [currentPageSize, currentPageNumber, currentSort, currentType]);
+    }, [currentPageSize, currentPageNumber, currentSort, currentType, filterObj]);
+
     const btnRef = useRef<HTMLButtonElement>(null);
     return (
         <>
@@ -64,7 +69,7 @@ const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: 
                     <BreadCrumpNavigator paths={['Category']} />
                     <SortFilterSection setActivePage={setActivePage} setCurrentPageNumber={setCurrentPageNumber} setCurrentPageSize={setCurrentPageSize} setCurrentSort={setCurrentSort} setCurrentType={setCurrentType} btnRef={btnRef} onOpen={onOpen} />
                     <SortFilterSectionDesktop setActivePage={setActivePage} setCurrentPageNumber={setCurrentPageNumber} setCurrentPageSize={setCurrentPageSize} setCurrentSort={setCurrentSort} setCurrentType={setCurrentType} btnRef={btnRef} onOpen={onOpen} />
-                    <SortFilterDrawer filterProducts={filterProducts} btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
+                    <SortFilterDrawer setActivePage={setActivePage} setFilterObj={setFilterObj} filterProducts={filterProducts} btnRef={btnRef} isOpen={isOpen} onClose={onClose} />
                     <ProductArea loading={loading} setActivePage={setActivePage} activePage={activePage} setCurrentPageNumber={setCurrentPageNumber} currentProducts={currentProducts} totalProducts={totalProducts} currentPageSize={currentPageSize} />
                 </div>
             </UserLayout>
@@ -75,7 +80,7 @@ const Category = ({ products, pageNumber, pageSize, totalProduct, sort, type }: 
 
 export const getServerSideProps: GetServerSideProps<PageProps> = async ({ query }) => {
     const { pageSize = 12, pageNumber = 1, sort = 'name', type = true } = query;
-    const { products, totalProduct } = await fetchProducts(Number(pageSize), Number(pageNumber), sort.toString(), !!type);
+    const { products, totalProduct } = await fetchProducts(Number(pageSize), Number(pageNumber), sort.toString(), !!type, {});
 
     return {
         props: { products, pageSize: Number(pageSize), pageNumber: Number(pageNumber), totalProduct: Number(totalProduct), sort: sort.toString(), type: !!type },

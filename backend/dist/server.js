@@ -142,6 +142,7 @@ app.get("/test", function (req, res, next) { return __awaiter(void 0, void 0, vo
 // Routes
 app.use("/api", checkDB_middleware_1.default, products_route_1.default);
 app.use("/api", checkDB_middleware_1.default, other_route_1.default);
+console.log('object');
 //Error handling
 function errorRoutesHandler() {
     app.use(errorCreater_helper_1.default);

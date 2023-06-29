@@ -1,0 +1,9 @@
+{
+    "name": "my-project",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\""
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

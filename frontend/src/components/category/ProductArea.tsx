@@ -8,7 +8,8 @@ import IProduct from '@/interfaces/product.interface';
 import { Spinner } from '@chakra-ui/react';
 
 const ProductArea = ({ setCurrentPageNumber, currentProducts, totalProducts, currentPageSize, setActivePage, activePage, loading }: { setCurrentPageNumber: React.Dispatch<React.SetStateAction<number>>; currentProducts: IProduct[]; totalProducts: number; currentPageSize: number; setActivePage: React.Dispatch<React.SetStateAction<number>>; activePage: number; loading: boolean; }) => {
-
+    // console.log({ currentPageSize, activePage });
+    const lastPage = Math.ceil(totalProducts / currentPageSize);
     return (
         <>
             {!loading ? <div className='px-[10px] mb-[20px] grid mt-[20px] gap-[20px] grid-cols-2 md:grid-cols-3 xl:grid-cols-4'>
@@ -28,6 +29,8 @@ const ProductArea = ({ setCurrentPageNumber, currentProducts, totalProducts, cur
                     limit={currentPageSize}
                     activePage={activePage}
                     onChangePage={(pageNum) => {
+
+                        if (pageNum == 0 || pageNum == lastPage + 1) return;
                         setActivePage(pageNum);
                         setCurrentPageNumber(pageNum);
                     }}
